@@ -31,7 +31,7 @@ export const MenuAdapter = createEntityAdapter<IWEBGood>();
 export const initialState = MenuAdapter.getInitialState({AllMenuLoaded:false});
 
 function LoadAllMenu (state:MenuState,action):MenuState  {
-   return MenuAdapter.addAll(action.streets,{...state,AllStreetsLoaded:true})
+   return MenuAdapter.addAll(action.goods,{...state,AllMenuLoaded:true})
 }
 
 export const MenuReducer = createReducer(

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "chilidelivery-42f84": {
+      "hosting": {
+        "delivery-mobile": [
+          "chilidelivery-42f84"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "chilidelivery-42f84"
+  }
+}

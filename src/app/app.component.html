@@ -6,8 +6,10 @@
       <mat-toolbar>Menu</mat-toolbar>
       <mat-nav-list>
         <a mat-list-item routerLink="/Menu">Goods</a>
-        <a mat-list-item routerLink="/Home">Link 2</a>
-        <a mat-list-item routerLink="/Home">Link 3</a>
+        <a mat-list-item routerLink="/Home">Пица</a>
+        <a mat-list-item routerLink="/Home">Суши</a>
+        <a mat-list-item routerLink="/Home">Кухня</a>
+        <a mat-list-item routerLink="/Home">Бар</a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -24,7 +26,9 @@
       </mat-toolbar>
       <!-- Add Content 
        Here -->
+       <ng-container class="d-flex flex-column justify-content-center"> 
        <router-outlet></router-outlet>
+       </ng-container>
     </mat-sidenav-content>
 </mat-sidenav-container>
   

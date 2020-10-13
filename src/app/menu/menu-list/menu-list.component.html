@@ -1,34 +1,29 @@
-<div class="card m-3 " style="max-width: 540px;">
-    <div class="row no-gutters">
-      <div class="col-sm-4 bg-secondary d-flex flex-column">
-        <button class="m-3  "  mat-raised-button style="outline:none"> mat button </button> 
-        <button class="m-3  "  mat-raised-button style="outline:none"> mat button </button>
-        <button class="m-3  "  mat-raised-button style="outline:none"> mat button </button>
+<ng-container *ngIf="infinite | async as ds">
+  <cdk-virtual-scroll-viewport itemSize="290" (scrolledIndexChange)='nextBatch($event,(ds[ds.length-1]))'>
+    <li *cdkVirtualFor="let item of ds; let i = index ">
+      <div class="card m-1 ">
+        
+            <div class="c-img bg-secondary d-flex justify-content-center align-items-center">
+              <img *ngIf="item.picture" class="card-img-top" [src]='item.picture' style="height: 150px; width: 150px" alt="Card image cap">
+              <h2 *ngIf="!item.picture" class="text-justify text-white"> нет картинки </h2>  
+            </div>  
+          
+            <div class="card-header c-header py-1">
+              
+              {{item.name}} {{item.price}} <span class="text-muted">грн.</span>
+            </div>
+            <div class="card-body c-body py-2">
+                
+              <p class="mb-1"> тут может быть состав или произвольное описание. </p> 
+                
+            </div>
+          
+            <div class="card-footer c-footer py-1">
+              <button class="btn btn-danger btn-sm"> ХОЧУ </button> 
+            </div>
+        
       </div>
-      <div class="col-sm-8">
-        <div class="card-body">
-          <h5 class="card-title text-body">Card title</h5>
-          <p class="card-text text-body">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text text-body"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-    </div>
-  </div>
+    </li>
 
-  <div class="ml-3 btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-    <div class="btn-group mr-2" role="group" aria-label="First group">
-      <button type="button" class="btn btn-secondary">1</button>
-      <button type="button" class="btn btn-secondary">2</button>
-      <button type="button" class="btn btn-secondary">3</button>
-      <button type="button" class="btn btn-secondary">4</button>
-    </div>
-    <div class="btn-group mr-2" role="group" aria-label="Second group">
-      <button type="button" class="btn btn-secondary">5</button>
-      <button type="button" class="btn btn-secondary">6</button>
-      <button type="button" class="btn btn-secondary">7</button>
-    </div>
-    <div class="btn-group" role="group" aria-label="Third group">
-      <button type="button" class="btn btn-secondary">8</button>
-    </div>
-  </div>
-  <button color='warn' class="m-3" style="outline:none" mat-raised-button> mat button </button> 
+  </cdk-virtual-scroll-viewport>
+</ng-container>

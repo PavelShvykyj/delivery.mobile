@@ -1,7 +1,8 @@
 export interface IBaseElement {
     id:string,
     externalid:string | undefined,
-    isSelected:boolean
+    isSelected:boolean,
+    isDeleted:boolean
 }
 
 export interface IBaseGood extends IBaseElement {

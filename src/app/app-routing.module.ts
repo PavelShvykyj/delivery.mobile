@@ -9,14 +9,15 @@ import { MenuResolver } from './menu/menu.resolver';
 const routes: Routes = [
   {
     path: 'Menu',
-    component: MenuListComponent,
-    resolve : {goods : MenuResolver}
+    component: MenuListComponent
+    
 
   },
 
   {
     path: 'Home',
     component: HomeComponent
+    
   },
 
   { 

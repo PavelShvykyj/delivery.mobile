@@ -1,6 +1,8 @@
+import { isPlatformServer } from '@angular/common';
 import { IWEBGood } from 'src/app/models/web.good';
 import { map, mergeMap, scan, tap, throttleTime, concatMap, take, share } from 'rxjs/operators';
-import { Component, OnInit, ViewChild } from '@angular/core';
+
+import { Component, ViewChild, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling' 
@@ -25,11 +27,11 @@ export class MenuListComponent implements OnInit {
   theEnd = false;
   offset = new BehaviorSubject(null);
   infinite : Observable<any[]>;
-  currentFolder : string;
+  currentFolder : string = "";
   
 
-  constructor(private db : AngularFirestore,private store: Store<AppState>) {
-    //this.Init();
+  constructor(private db : AngularFirestore,private store: Store<AppState>, @Inject(PLATFORM_ID) private plaformid) {
+    this.Init();
    }
 
    Init() {
@@ -47,14 +49,13 @@ export class MenuListComponent implements OnInit {
    }
 
   ngOnInit(): void {
-     this.store.pipe(select(selectCurrentFolder)).subscribe(f=>{
+    if (!isPlatformServer(this.plaformid)) {
+      this.store.pipe(select(selectCurrentFolder)).subscribe(f=>{
       
-       this.currentFolder = f;
-       this.Init();
-     })
-    
-
-   
+        this.currentFolder = f;
+        this.Init();
+      })
+    } 
   }
 
   OnElelementClick(item: IWEBGood) {
@@ -88,7 +89,7 @@ export class MenuListComponent implements OnInit {
         .limit(batchSize))
           .snapshotChanges().pipe(
             tap(arr => ( arr.length ? null : (this.theEnd = true) )),
-            map(arr => {return arr.reduce((acc,cur) => {
+            map(arr => {return arr.filter(el=> !(el.payload.doc.data() as IWEBGood).isDeleted). reduce((acc,cur) => {
               
               const id = cur.payload.doc.id;
               const data = 
@@ -99,6 +100,7 @@ export class MenuListComponent implements OnInit {
               }
               return {...acc, [id]:data };},{}); }),
               take(1),
+              
               share()
           );
   } 

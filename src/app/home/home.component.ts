@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { menuMainFolderSelected } from '../menu/menu.actions';
+import { AppState } from '../reducers';
 
 
 
@@ -9,12 +12,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  constructor(private router : Router) {
+  constructor(private router : Router, private store: Store<AppState>) {
     
     
   }
  
   GoTomenu() {
+    this.store.dispatch(menuMainFolderSelected({id:""}));
     this.router.navigateByUrl("Menu")
   }
 }

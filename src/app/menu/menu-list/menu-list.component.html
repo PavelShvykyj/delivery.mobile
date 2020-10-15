@@ -1,28 +1,22 @@
-
 <ng-container *ngIf="infinite | async as ds">
   <cdk-virtual-scroll-viewport itemSize="290" (scrolledIndexChange)='nextBatch($event,(ds[ds.length-1]))'>
     <li *cdkVirtualFor="let item of ds; let i = index ">
       <div class="card m-1 ">
-        
-            <div class="c-img bg-secondary d-flex justify-content-center align-items-center">
-              <img *ngIf="item.picture" class="card-img-top" [src]='item.picture' style="height: 150px; width: 150px" alt="Card image cap">
-              <h2 *ngIf="!item.picture" class="text-justify text-white"> нет картинки </h2>  
-            </div>  
-          
-            <div class="card-header c-header py-1">
-              
-              {{item.name}} <span *ngIf="!item.isFolder" class="text-muted"> {{item.price}}грн.</span>
-            </div>
-            <div class="card-body c-body py-2">
-                
-              <p *ngIf="!item.isFolder" class="mb-1"> тут может быть состав или произвольное описание. </p> 
-                
-            </div>
-          
-            <div class="card-footer c-footer py-1">
-              <button class="btn btn-danger btn-sm" (click)='OnElelementClick(item)'> ХОЧУ </button> 
-            </div>
-        
+        <div class="c-img bg-secondary d-flex justify-content-center align-items-center">
+          <img *ngIf="item.picture" class="card-img-top" [src]='item.picture' style="height: 150px; width: 150px"
+            alt="Card image cap">
+          <h2 *ngIf="!item.picture" class="text-justify text-white"> нет картинки </h2>
+        </div>
+        <div class="card-header c-header py-1 d-flex justify-content-center align-items-center">
+          <span *ngIf="!item.isFolder" class="mr-2"> {{item.name}} </span> <span *ngIf="!item.isFolder" class="text-muted"> {{item.price}}грн.</span>
+        </div>
+        <div class="card-body c-body py-2">
+          <p *ngIf="!item.isFolder" class="mb-1"> тут может быть состав или произвольное описание. </p>
+          <h3 *ngIf="item.isFolder" class="mb-1">  {{item.name}} </h3>
+        </div>
+        <div class="card-footer c-footer py-1 d-flex justify-content-end align-items-end">
+          <button class="btn btn-danger btn-sm" (click)='OnElelementClick(item)'> ХОЧУ </button>
+        </div>
       </div>
     </li>
 

@@ -1,3 +1,4 @@
+
 <ng-container *ngIf="infinite | async as ds">
   <cdk-virtual-scroll-viewport itemSize="290" (scrolledIndexChange)='nextBatch($event,(ds[ds.length-1]))'>
     <li *cdkVirtualFor="let item of ds; let i = index ">
@@ -10,16 +11,16 @@
           
             <div class="card-header c-header py-1">
               
-              {{item.name}} {{item.price}} <span class="text-muted">грн.</span>
+              {{item.name}} <span *ngIf="!item.isFolder" class="text-muted"> {{item.price}}грн.</span>
             </div>
             <div class="card-body c-body py-2">
                 
-              <p class="mb-1"> тут может быть состав или произвольное описание. </p> 
+              <p *ngIf="!item.isFolder" class="mb-1"> тут может быть состав или произвольное описание. </p> 
                 
             </div>
           
             <div class="card-footer c-footer py-1">
-              <button class="btn btn-danger btn-sm"> ХОЧУ </button> 
+              <button class="btn btn-danger btn-sm" (click)='OnElelementClick(item)'> ХОЧУ </button> 
             </div>
         
       </div>

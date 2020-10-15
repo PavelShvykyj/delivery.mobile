@@ -30,10 +30,10 @@ export class MenuResolver implements Resolve<any> {
             }),
             filter(StreetssLoaded => StreetssLoaded),
             first(),
-            finalize(() => this.webloading = false)
+            finalize(() => {console.log("finalize"); return this.webloading = false})
         );
         
-        return combineLatest(WebChain$)          
+        return WebChain$;          
 
 
     }

@@ -14,7 +14,13 @@ const routes: Routes = [
 
   },
 
-  { path: '**', 
+  {
+    path: 'Home',
+    component: HomeComponent
+  },
+
+  { 
+    path: '**', 
     component: HomeComponent
   }
 

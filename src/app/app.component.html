@@ -5,11 +5,10 @@
         [opened]="(isHandset$ | async) === false">
       <mat-toolbar>Menu</mat-toolbar>
       <mat-nav-list>
-        <a mat-list-item routerLink="/Menu">Goods</a>
-        <a mat-list-item routerLink="/Home">Пица</a>
-        <a mat-list-item routerLink="/Home">Суши</a>
-        <a mat-list-item routerLink="/Home">Кухня</a>
-        <a mat-list-item routerLink="/Home">Бар</a>
+        <a mat-list-item routerLink="home"> Описание </a> 
+        <ng-container *ngIf="meinements$ | async as mainmenu">
+          <a mat-list-item *ngFor="let item of mainmenu" (click)="OnMenuItemClick(item.id)"> {{ item.name}} </a> 
+        </ng-container>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

@@ -13,7 +13,7 @@ import {
 
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { IWEBGood } from 'src/app/models/web.good';
-import { allMenuLoaded } from '../menu.actions';
+import { allMenuLoaded, menuFolderSelected, menuMainFolderSelected } from '../menu.actions';
 
 
 export const menuFeatureKey = 'menu';
@@ -24,19 +24,27 @@ export const menuFeatureKey = 'menu';
 
 
 export interface MenuState extends EntityState<IWEBGood> {
-  AllMenuLoaded:boolean
+  AllMenuLoaded:boolean,
+  CurrentFolder:string | undefined
 }
 
 export const MenuAdapter = createEntityAdapter<IWEBGood>();
-export const initialState = MenuAdapter.getInitialState({AllMenuLoaded:false});
+export const initialState = MenuAdapter.getInitialState({AllMenuLoaded:false,CurrentFolder:"@@@"});
 
 function LoadAllMenu (state:MenuState,action):MenuState  {
    return MenuAdapter.addAll(action.goods,{...state,AllMenuLoaded:true})
 }
 
+function ChangeCurrentFolder (state:MenuState,action):MenuState  {
+  console.log('ChangeCurrentFolder',action.id);
+  return {...state,CurrentFolder:action.id};
+}
+
 export const MenuReducer = createReducer(
   initialState,
   on(allMenuLoaded,(state,action)=> LoadAllMenu(state,action)),
+  on(menuMainFolderSelected,(state,action)=> ChangeCurrentFolder(state,action)),
+  on(menuFolderSelected,(state,action)=> ChangeCurrentFolder(state,action))
   );
 
 

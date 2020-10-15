@@ -1,9 +1,15 @@
-import { map, mergeMap, scan, tap, throttleTime } from 'rxjs/operators';
+import { IWEBGood } from 'src/app/models/web.good';
+import { map, mergeMap, scan, tap, throttleTime, concatMap, take, share } from 'rxjs/operators';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling' 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/reducers';
+import { selectCurrentFolder } from '../menu.selectors';
+import { off } from 'process';
+import { menuFolderSelected } from '../menu.actions';
 
 const batchSize = 20;
 
@@ -16,58 +22,85 @@ export class MenuListComponent implements OnInit {
 
   @ViewChild(CdkVirtualScrollViewport)
   viewport : CdkVirtualScrollViewport 
-
   theEnd = false;
-
   offset = new BehaviorSubject(null);
   infinite : Observable<any[]>;
+  currentFolder : string;
+  
 
-  constructor(private db : AngularFirestore) {
+  constructor(private db : AngularFirestore,private store: Store<AppState>) {
+    //this.Init();
+   }
+
+   Init() {
+    this.theEnd = false;
+    this.offset = new BehaviorSubject(null);
     const batchMap = this.offset.pipe(
+      
       throttleTime(500),
       mergeMap(n=> this.getBatch(n)),
       scan((acc,batch)=> {return {...acc, ...batch};},{})
     );
 
+    
     this.infinite = batchMap.pipe(map(v=> Object.values(v)));
-
    }
 
   ngOnInit(): void {
+     this.store.pipe(select(selectCurrentFolder)).subscribe(f=>{
+      
+       this.currentFolder = f;
+       this.Init();
+     })
     
+
+   
+  }
+
+  OnElelementClick(item: IWEBGood) {
+    
+    if (item.isFolder) {
+      this.store.dispatch(menuFolderSelected({id:item.id}));  
+    }
   }
 
   nextBatch(e, offset) {
-    console.log('nextBatch offset',offset);
+    
     if(this.theEnd) {
-      console.log('THE END');
       return
     }
 
     const end = this.viewport.getRenderedRange().end;
     const total = this.viewport.getDataLength();
-    console.log('end,total,offset',end,total,offset.name)
-
-
+    
     if(end == total) {
+      console.log('end == total');
       this.offset.next(offset.name);
     }
-
-    
   }
 
   getBatch(lastSeen: string) {
+    
     return this.db.collection('web.goods', ref => ref
-    .orderBy('name')
-    .startAfter(lastSeen)
-    .limit(batchSize))
-      .snapshotChanges().pipe(
-        tap(arr => ( arr.length ? null : (this.theEnd = true) )),
-        map(arr => {return arr.reduce((acc,cur) => {
-          const id = cur.payload.doc.id;
-          const data = cur.payload.doc.data();
-          return {...acc, [id]:data };},{}); })
-      )
+        .where("parentid","==",this.currentFolder)
+        .orderBy('name')
+        .startAfter(lastSeen)
+        .limit(batchSize))
+          .snapshotChanges().pipe(
+            tap(arr => ( arr.length ? null : (this.theEnd = true) )),
+            map(arr => {return arr.reduce((acc,cur) => {
+              
+              const id = cur.payload.doc.id;
+              const data = 
+              {
+                ...(cur.payload.doc.data() as object),
+                
+                id: id
+              }
+              return {...acc, [id]:data };},{}); }),
+              take(1),
+              share()
+          );
   } 
 
   trackByIdx(i) {

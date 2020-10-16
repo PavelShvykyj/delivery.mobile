@@ -1,7 +1,7 @@
 <ng-container *ngIf="infinite | async as ds">
   <cdk-virtual-scroll-viewport itemSize="290" (scrolledIndexChange)='nextBatch($event,(ds[ds.length-1]))'>
     <li *cdkVirtualFor="let item of ds; let i = index ">
-      <div class="card m-1 ">
+      <div class="card m-1 text-body">
         <div class="c-img bg-secondary d-flex justify-content-center align-items-center">
           <img *ngIf="item.picture" class="card-img-top" [src]='item.picture' style="height: 150px; width: 150px"
             alt="Card image cap">
@@ -10,7 +10,7 @@
         <div class="card-header c-header py-1 d-flex justify-content-center align-items-center">
           <span *ngIf="!item.isFolder" class="mr-2"> {{item.name}} </span> <span *ngIf="!item.isFolder" class="text-muted"> {{item.price}}грн.</span>
         </div>
-        <div class="card-body c-body py-2">
+        <div class="card-body c-body py-2 d-flex justify-content-center align-items-center">
           <p *ngIf="!item.isFolder" class="mb-1"> тут может быть состав или произвольное описание. </p>
           <h3 *ngIf="item.isFolder" class="mb-1">  {{item.name}} </h3>
         </div>

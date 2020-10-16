@@ -17,6 +17,9 @@ import { AppEffects } from './app.effects';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+///////////////////  external  ////////////////////
+import { ShareModule } from 'ngx-sharebuttons';
+
 
 ///////////////////  OWN CREATED ////////////////////
 import { AppRoutingModule } from './app-routing.module';
@@ -40,7 +43,7 @@ import { MaterialsModule } from './materials/materials.module';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-
+    ShareModule,
     MenuModule,
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',

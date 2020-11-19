@@ -9,7 +9,7 @@ import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling'
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
-import { selectCurrentFolder } from '../menu.selectors';
+import { selectCurrentFolder, selectGoodsBloc } from '../menu.selectors';
 import { off } from 'process';
 import { menuFolderSelected } from '../menu.actions';
 
@@ -65,8 +65,8 @@ export class MenuListComponent implements OnInit {
     }
   }
 
-  nextBatch(e, offset) {
-    
+  nextBatch(e, g) {
+    console.log('offset', g);
     if(this.theEnd) {
       return
     }
@@ -75,34 +75,42 @@ export class MenuListComponent implements OnInit {
     const total = this.viewport.getDataLength();
     
     if(end == total) {
-      console.log('end == total');
-      this.offset.next(offset.name);
+      if (g == null || g == undefined) {
+        this.offset.next(null);  
+      } else {
+        this.offset.next(g.mName);
+      }
+      
     }
   }
 
   getBatch(lastSeen: string) {
-    
-    return this.db.collection('web.goods', ref => ref
-        .where("parentid","==",this.currentFolder)
-        .orderBy('name')
-        .startAfter(lastSeen)
-        .limit(batchSize))
-          .snapshotChanges().pipe(
-            tap(arr => ( arr.length ? null : (this.theEnd = true) )),
-            map(arr => {return arr.filter(el=> !(el.payload.doc.data() as IWEBGood).isDeleted). reduce((acc,cur) => {
+   
+
+    return this.store.pipe(select(selectGoodsBloc,{name:lastSeen,lenth:batchSize}));
+        
+
+    // return this.db.collection('web.goods', ref => ref
+    //     .where("parentid","==",this.currentFolder)
+    //     .orderBy('name')
+    //     .startAfter(lastSeen)
+    //     .limit(batchSize))
+    //       .snapshotChanges().pipe(
+    //         tap(arr => ( arr.length ? null : (this.theEnd = true) )),
+    //         map(arr => {return arr.filter(el=> !(el.payload.doc.data() as IWEBGood).isDeleted). reduce((acc,cur) => {
               
-              const id = cur.payload.doc.id;
-              const data = 
-              {
-                ...(cur.payload.doc.data() as object),
+    //           const id = cur.payload.doc.id;
+    //           const data = 
+    //           {
+    //             ...(cur.payload.doc.data() as object),
                 
-                id: id
-              }
-              return {...acc, [id]:data };},{}); }),
-              take(1),
+    //             id: id
+    //           }
+    //           return {...acc, [id]:data };},{}); }),
+    //           take(1),
               
-              share()
-          );
+    //           share()
+    //       );
   } 
 
   trackByIdx(i) {

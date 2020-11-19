@@ -14,29 +14,46 @@ import {
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { IWEBGood } from 'src/app/models/web.good';
 import { allMenuLoaded, menuFolderSelected, menuMainFolderSelected } from '../menu.actions';
+import { IMobileGood, IMobilePriceElement } from 'src/app/models/mobile.good';
 
 
 export const menuFeatureKey = 'menu';
 
+export interface IGoods extends EntityState<IMobileGood> {}
+export interface IPrice extends EntityState<IMobilePriceElement> {}
 
+export const GoodsAdapter = createEntityAdapter<IMobileGood>();
+export const PriceAdapter = createEntityAdapter<IMobilePriceElement>();
 
+export const GoodsinitialState = GoodsAdapter.getInitialState();
+export const PriceinitialState = PriceAdapter.getInitialState();
 
-
-
-export interface MenuState extends EntityState<IWEBGood> {
+export interface MenuState  {
+  Goods:IGoods,
+  Price:IPrice,
   AllMenuLoaded:boolean,
   CurrentFolder:string | undefined
 }
 
-export const MenuAdapter = createEntityAdapter<IWEBGood>();
-export const initialState = MenuAdapter.getInitialState({AllMenuLoaded:false,CurrentFolder:"@@@"});
+export const initialState = { 
+  AllMenuLoaded: false,
+  CurrentFolder:"@@@",
+  Goods:GoodsinitialState,
+  Price:PriceinitialState
+}
+
+
+
 
 function LoadAllMenu (state:MenuState,action):MenuState  {
-   return MenuAdapter.addAll(action.goods,{...state,AllMenuLoaded:true})
+   return {...state, 
+    AllMenuLoaded:true,
+    Goods: GoodsAdapter.addMany(action.goods,state.Goods),
+    Price: PriceAdapter.addMany(action.price,state.Price)}
 }
 
 function ChangeCurrentFolder (state:MenuState,action):MenuState  {
-  console.log('ChangeCurrentFolder',action.id);
+ 
   return {...state,CurrentFolder:action.id};
 }
 
@@ -52,7 +69,9 @@ export const MenuReducer = createReducer(
     return MenuReducer(state, action);
   }
   
-export const {selectAll, selectEntities} = MenuAdapter.getSelectors();
+export const {selectAll, selectEntities} = GoodsAdapter.getSelectors();
+export const priceSelectAll = PriceAdapter.getSelectors().selectAll;
+export const priceselectEntities = PriceAdapter.getSelectors().selectEntities;
 
 
 export const metaReducers: MetaReducer<MenuState>[] = !environment.production ? [] : [];

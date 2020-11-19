@@ -1,3 +1,4 @@
+import { IMobileGood } from './models/mobile.good';
 import { IWEBGood } from 'src/app/models/web.good';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
@@ -5,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { map, shareReplay, take, tap } from 'rxjs/operators';
 import { AppState } from './reducers';
-import { selectByParent } from './menu/menu.selectors';
+import { selectByParent, selectTopFolders } from './menu/menu.selectors';
 import { menuMainFolderSelected, loadAllMenu } from './menu/menu.actions';
 import { MatDrawer } from '@angular/material/sidenav';
 import { isPlatformServer } from '@angular/common';
@@ -31,14 +32,14 @@ export class AppComponent {
     shareReplay()
   );
 
-  meinements$: Observable<IWEBGood[]> = of([]);
+  meinelements$: Observable<IMobileGood[]> = of([]);
 
 constructor(private breakpointObserver: BreakpointObserver,
   private router : Router,
   private store: Store<AppState>, @Inject(PLATFORM_ID) private plaformid) {
     if ( !isPlatformServer(plaformid) ) {
       this.store.dispatch(loadAllMenu());
-      this.meinements$ = this.store.pipe(select(selectByParent, { onlyfolders: true, parentid: undefined }));
+      this.meinelements$ = this.store.pipe(select(selectTopFolders),tap(d=> console.log('top',d)));
       }
   }
 

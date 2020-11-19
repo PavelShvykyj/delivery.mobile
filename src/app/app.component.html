@@ -7,8 +7,8 @@
       
       <mat-nav-list >
         <a mat-list-item routerLink="home"> Описание </a> 
-        <ng-container *ngIf="meinements$ | async as mainmenu">
-          <a mat-list-item *ngFor="let item of mainmenu" (click)="OnMenuItemClick(item.id)"> {{ item.name}} </a> 
+        <ng-container *ngIf="meinelements$ | async as mainmenu">
+          <a mat-list-item *ngFor="let item of mainmenu" (click)="OnMenuItemClick(item.id)"> {{ item.mName}} </a> 
         </ng-container>
       </mat-nav-list>
     </mat-sidenav>

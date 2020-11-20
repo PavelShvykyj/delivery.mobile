@@ -5,7 +5,10 @@
         <div class="c-img bg-secondary d-flex justify-content-center align-items-center">
           <img *ngIf="item.picture" class="card-img-top" [src]='item.picture' style="height: 150px; width: 150px"
             alt="Card image cap">
-          <h2 *ngIf="!item.picture" class="text-justify text-white"> нет картинки </h2>
+            <img *ngIf="!item.picture" class="card-img-top" [src]='defoultpicture' style="height: 150px; width: 150px"
+            alt="Card image cap">
+            
+          <!--<h2 *ngIf="!item.picture" class="text-justify text-white" > нет картинки </h2> -->
         </div>
         <div class="card-header c-header py-1 d-flex justify-content-center align-items-center">
           <span *ngIf="!item.isFolder" class="mr-2"> {{item.mName}} </span> <span *ngIf="!item.isFolder" class="text-muted"> {{item.price}}грн.</span>

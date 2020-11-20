@@ -10,10 +10,9 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { selectCurrentFolder, selectGoodsBloc } from '../menu.selectors';
-import { off } from 'process';
 import { menuFolderSelected } from '../menu.actions';
 
-const batchSize = 20;
+const batchSize = 5;
 
 @Component({
   selector: 'menu-list',
@@ -28,7 +27,8 @@ export class MenuListComponent implements OnInit {
   offset = new BehaviorSubject(null);
   infinite : Observable<any[]>;
   currentFolder : string = "";
-  
+  defoultpicture : string = "https://firebasestorage.googleapis.com/v0/b/chilidelivery-42f84.appspot.com/o/webgoodpicures%2F5.jpg?alt=media&token=9c93dd85-301f-4a7c-ad72-24592aa5b8c5";  
+
 
   constructor(private db : AngularFirestore,private store: Store<AppState>, @Inject(PLATFORM_ID) private plaformid) {
     this.Init();
@@ -75,19 +75,27 @@ export class MenuListComponent implements OnInit {
     const total = this.viewport.getDataLength();
     
     if(end == total) {
-      if (g == null || g == undefined) {
-        this.offset.next(null);  
-      } else {
-        this.offset.next(g.mName);
-      }
-      
+      this.offset.next(g.mNumber);      
     }
   }
 
   getBatch(lastSeen: string) {
    
 
-    return this.store.pipe(select(selectGoodsBloc,{name:lastSeen,lenth:batchSize}));
+    return this.store.pipe(select(selectGoodsBloc,{name:lastSeen,lenth:batchSize}),
+                      take(1),
+                      tap(arr => ( arr.length ? null : (this.theEnd = true) )),
+                      map(arr => {
+                        return arr.reduce((acc,cur) => {
+                                
+                      const id = cur.id;
+                      const data = 
+                      {
+                      ...cur,
+                      id: id
+                      }
+                      return {...acc, [id]:data };},{}); }),
+                      );
         
 
     // return this.db.collection('web.goods', ref => ref

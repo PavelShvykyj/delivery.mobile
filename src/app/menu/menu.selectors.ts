@@ -4,6 +4,21 @@ import { MenuState } from './reducers';
 import * as fromMenu from './reducers/index';
 import { min } from 'rxjs/operators';
 
+export function SortBynumber(el1:IMobileGood,el2:IMobileGood) {
+    if (el1.mNumber>el2.mNumber) {
+      return 1;  
+    } 
+
+    if (el1.mNumber==el2.mNumber) {
+        return 0;  
+    }
+
+    if (el1.mNumber<el2.mNumber) {
+        return -1;  
+    }
+
+}
+
 export const selectMenuState = createFeatureSelector<MenuState>(fromMenu.menuFeatureKey);
 
 export const GoodsState = createSelector(
@@ -49,16 +64,17 @@ export const selectGoodsBloc = createSelector(
     (state,folder,props) => { 
         let goods : IMobileGood[] = state;
         goods = goods.filter(el => {return el.parentid==folder});
-        console.log('goods',goods)
+        goods.sort((el1,el2)=> SortBynumber(el1,el2));
+
         let StartIndex = 0;
         if (props.name==null || props.name==undefined || props.name=="" ) {
             StartIndex = 0;
         } else {
-            StartIndex = Math.min(goods.indexOf(goods.find(el => (el.mName == props.name)))+1,goods.length-1);
+            StartIndex = Math.min(goods.indexOf(goods.find(el => (el.mNumber == props.name)))+1,goods.length-1);
         }
-        console.log('start, props.lenth, end',StartIndex,props.lenth ,Math.min(StartIndex+props.lenth, goods.length-1));
+        
         goods = goods.slice(StartIndex,Math.min(StartIndex+props.lenth, goods.length-1));
-        console.log('goods slise',goods);
+        
         return goods
     }); 
 

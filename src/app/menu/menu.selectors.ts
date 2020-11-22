@@ -63,7 +63,12 @@ export const selectGoodsBloc = createSelector(
     selectCurrentFolder,
     (state,folder,props) => { 
         let goods : IMobileGood[] = state;
-        goods = goods.filter(el => {return el.parentid==folder});
+        
+        
+        goods = goods.filter(el => {
+
+        return el.parentid==folder});
+        
         goods.sort((el1,el2)=> SortBynumber(el1,el2));
 
         let StartIndex = 0;

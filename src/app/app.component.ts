@@ -1,7 +1,7 @@
 import { IMobileGood } from './models/mobile.good';
 import { IWEBGood } from 'src/app/models/web.good';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, ViewChild, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { map, shareReplay, take, tap } from 'rxjs/operators';
@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent  {
   title = 'delivery-mobile';
 
   @ViewChild('drawer')
@@ -39,9 +39,11 @@ constructor(private breakpointObserver: BreakpointObserver,
   private store: Store<AppState>, @Inject(PLATFORM_ID) private plaformid) {
     if ( !isPlatformServer(plaformid) ) {
       this.store.dispatch(loadAllMenu());
-      this.meinelements$ = this.store.pipe(select(selectTopFolders),tap(d=> console.log('top',d)));
+      this.meinelements$ = this.store.pipe(select(selectTopFolders));
       }
   }
+
+ 
 
   OnMenuItemClick(id) {
     this.store.dispatch(menuMainFolderSelected({id:id}));

@@ -37,7 +37,7 @@ export interface MenuState  {
 
 export const initialState = { 
   AllMenuLoaded: false,
-  CurrentFolder:"@@@",
+  CurrentFolder:"",
   Goods:GoodsinitialState,
   Price:PriceinitialState
 }

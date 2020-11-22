@@ -31,7 +31,9 @@ export class MenuListComponent implements OnInit {
 
 
   constructor(private db : AngularFirestore,private store: Store<AppState>, @Inject(PLATFORM_ID) private plaformid) {
+    if ( !isPlatformServer(this.plaformid) ) {
     this.Init();
+    }
    }
 
    Init() {
@@ -42,6 +44,7 @@ export class MenuListComponent implements OnInit {
       throttleTime(500),
       mergeMap(n=> this.getBatch(n)),
       scan((acc,batch)=> {return {...acc, ...batch};},{})
+        
     );
 
     
@@ -49,14 +52,12 @@ export class MenuListComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    if (!isPlatformServer(this.plaformid)) {
+    if ( !isPlatformServer(this.plaformid) ) {  
       this.store.pipe(select(selectCurrentFolder)).subscribe(f=>{
-      
         this.currentFolder = f;
         this.Init();
-      })
-    } 
-  }
+    }) 
+  }}
 
   OnElelementClick(item: IWEBGood) {
     
@@ -66,7 +67,7 @@ export class MenuListComponent implements OnInit {
   }
 
   nextBatch(e, g) {
-    console.log('offset', g);
+    
     if(this.theEnd) {
       return
     }
@@ -75,7 +76,14 @@ export class MenuListComponent implements OnInit {
     const total = this.viewport.getDataLength();
     
     if(end == total) {
-      this.offset.next(g.mNumber);      
+      if (g == undefined ) {
+        this.offset.next("");
+      }
+      else {
+        this.offset.next(g.mNumber);      
+      }
+
+      
     }
   }
 

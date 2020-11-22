@@ -27,11 +27,16 @@ import { MenuModule } from './menu/menu.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MaterialsModule } from './materials/materials.module';
+import { AppShellRenderDirective } from './directives/appshell-render.directive';
+import { AppShellNoRenderDirective } from './directives/appshell-no-render.directive';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    AppShellRenderDirective,
+    AppShellNoRenderDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

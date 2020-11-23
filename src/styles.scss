@@ -30,3 +30,11 @@ $delivery-mobile-theme: mat-dark-theme($delivery-mobile-primary, $delivery-mobil
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.custom-modalbox {
+    mat-dialog-container {
+        padding: 5px;
+        
+        background-color: map-get($mat-grey, 300);
+    }
+}

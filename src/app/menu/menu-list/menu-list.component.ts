@@ -11,6 +11,8 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { selectCurrentFolder, selectGoodsBloc } from '../menu.selectors';
 import { menuFolderSelected } from '../menu.actions';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { GoodEditComponent } from '../good-edit/good-edit.component';
 
 const batchSize = 5;
 
@@ -30,7 +32,9 @@ export class MenuListComponent implements OnInit {
   defoultpicture : string = "https://firebasestorage.googleapis.com/v0/b/chilidelivery-42f84.appspot.com/o/webgoodpicures%2F5.jpg?alt=media&token=9c93dd85-301f-4a7c-ad72-24592aa5b8c5";  
 
 
-  constructor(private db : AngularFirestore,private store: Store<AppState>, @Inject(PLATFORM_ID) private plaformid) {
+  constructor(private db : AngularFirestore,
+    private dialog: MatDialog,
+    private store: Store<AppState>, @Inject(PLATFORM_ID) private plaformid) {
     if ( !isPlatformServer(this.plaformid) ) {
     this.Init();
     }
@@ -62,8 +66,28 @@ export class MenuListComponent implements OnInit {
   OnElelementClick(item: IWEBGood) {
     
     if (item.isFolder) {
-      this.store.dispatch(menuFolderSelected({id:item.id}));  
+      this.store.dispatch(menuFolderSelected({id:item.id}));
+      return 
     }
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.maxHeight = "90vh";
+    dialogConfig.minWidth = "90vw"
+    dialogConfig.panelClass = 'custom-modalbox';
+
+    dialogConfig.data = { item }
+    const DialogRef: MatDialogRef<GoodEditComponent> = this.dialog.open(GoodEditComponent, dialogConfig);
+    DialogRef.afterClosed().subscribe(res => {
+      if (res.answer != 'save') {
+        return;
+      }
+      console.log(res);});
+
+      //this.store.dispatch(updateWebgood({ good: res.data }));
+  
+
+
   }
 
   nextBatch(e, g) {

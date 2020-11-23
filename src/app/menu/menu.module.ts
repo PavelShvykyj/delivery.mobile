@@ -9,11 +9,12 @@ import { MenuDataSourseService } from './menu-data-sourse.service';
 import { MenuResolver } from './menu.resolver';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { MaterialsModule } from '../materials/materials.module';
+import { GoodEditComponent } from './good-edit/good-edit.component';
 
 
 
 @NgModule({
-  declarations: [MenuListComponent],
+  declarations: [MenuListComponent, GoodEditComponent],
   imports: [
     CommonModule,
     MaterialsModule,

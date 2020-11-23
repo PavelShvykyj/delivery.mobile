@@ -1,0 +1,72 @@
+<div class="card text-white bg-dark">
+  <div class="card-header  d-flex flex-row align-items-center pb-2">
+    <img *ngIf="data.item.picture" class="mat-card-avatar" [src]='data.item.picture' alt="Card image cap">
+    <img *ngIf="!data.item.picture" class="mat-card-avatar" [src]='defoultpicture' alt="Card image cap">
+    
+    <p class="mb-0 ml-2 text-center text-justify ml-3"> {{ data.item.mName }} </p>
+    
+  </div>
+  <div class="card-body pt-2  px-2">
+
+    <ul class="list-group list-group-flush ">
+      <li class="list-group-item ">
+        <!-- <p class="mb-0 ml-2 text-center text-justify">Размер:</p> -->
+        <div class="input-group mb-1">
+            <div class="input-group-prepend align-items-stretch">
+                <span class="input-group-text">Размер:</span>
+                <div class="btn-group" role="group" aria-label="">
+                    <button class="mat-any-size" mat-raised-button color='primaty'>30</button>
+                    <button class="mat-any-size" mat-raised-button color='accent'>40</button>
+                    <button class="mat-any-size" mat-raised-button color='primaty'>50</button>
+                </div>
+            </div>
+        </div>  
+     </li>
+      <li class="list-group-item">
+        <!-- <p class="mb-0 ml-2 text-center text-justify">Тип:</p> -->
+        <div class="input-group mb-1 ">
+            <div class="input-group-prepend ">
+                <span class="input-group-text">Тип:</span>
+                <div class="btn-group" role="group" aria-label="">
+                    <button class="mat-any-size" mat-raised-button color='accent'>Фитнесс</button>
+                    <button class="mat-any-size" mat-raised-button color='primaty'>Обычная</button>
+                </div>
+            </div>
+        </div>        
+      </li>
+
+      <li class="list-group-item">
+        <!-- <p class="mb-0 text-center text-justify">Количество:</p> -->
+        <div class="input-group">
+            <div class="input-group-prepend ">
+                <span class="input-group-text">Кол.-во:</span>
+                <button class="mat-any-size" mat-raised-button color='primaty'>+</button>
+            </div>
+      
+            <input type="text" class="form-control" placeholder="Количество" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+            <div class="input-group-append ">
+                <button class="mat-any-size" mat-raised-button color='primaty'>-</button>
+            </div>
+
+        </div>      
+      </li>
+      <li class="list-group-item">
+        <div class="input-group-sm">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Цена:</span>
+                <span class="input-group-text">160грн.</span>
+                <span class="input-group-text">Сумма:</span>
+                <span class="input-group-text">320грн.</span>
+            </div>    
+        </div> 
+      </li>
+    </ul>
+  </div>
+  <div class="card-footer d-flex flex-row justify-content-between">
+    <!-- <button type="button" class="btn-sm btn-secondary">Сохранить</button>
+    <button type="button" class="btn-sm btn-secondary">Отмена</button> -->
+    <button mat-raised-button color='accent' (click)="Cancel()">Отмена</button>
+    <button mat-raised-button color='primaty' (click)="Order()">Заказать</button>
+  </div>
+</div>

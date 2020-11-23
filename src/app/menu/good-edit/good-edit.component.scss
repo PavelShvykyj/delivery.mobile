@@ -1,4 +1,7 @@
+@import '~@angular/material/theming';
+
 $mat-card-header-size: 40px !default;
+
 .mat-card-avatar {
   height: $mat-card-header-size;
   width: $mat-card-header-size;
@@ -25,9 +28,23 @@ $mat-card-header-size: 40px !default;
     border-radius: 0px !important;
     outline: none !important;
     
+    
 }
 
 .mat-any-size {
     min-width: unset !important;
     min-height: unset !important;
+}
+
+li.mat-accent {
+    background-color: map-get($mat-grey, 700);;
+    
+}
+
+span.input-group-text {
+    border-radius: 0% !important;
+}
+
+input.form-control {
+    transition: none;
 }

@@ -27,17 +27,12 @@ $mat-card-header-size: 40px !default;
 .mat-raised-button {
     border-radius: 0px !important;
     outline: none !important;
-    
-    
 }
 
-.mat-any-size {
-    min-width: unset !important;
-    min-height: unset !important;
-}
+
 
 li.mat-accent {
-    background-color: map-get($mat-grey, 700);;
+    background-color: map-get($mat-grey, 700);
     
 }
 
@@ -46,5 +41,5 @@ span.input-group-text {
 }
 
 input.form-control {
-    transition: none;
+    border: none;
 }

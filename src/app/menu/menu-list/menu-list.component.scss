@@ -1,3 +1,7 @@
+@import '~@angular/material/theming';
+
+$background-color: map-get($mat-grey, 700);
+
 cdk-virtual-scroll-viewport {
     height: 95vh;
     width: 95vw;
@@ -22,6 +26,7 @@ cdk-virtual-scroll-viewport {
     width: 100%;
     margin: 0px;
     padding: 0px;
+    background: black;
 }
 
 .c-header {
@@ -44,4 +49,12 @@ cdk-virtual-scroll-viewport {
     max-width: 90vw;
   }
 
+  .mat-raised-button {
+    border-radius: 0px !important;
+    height: 35px !important; 
+  }
+  
+  .card-img-top {
+    height: 150px !important;
+  }
   

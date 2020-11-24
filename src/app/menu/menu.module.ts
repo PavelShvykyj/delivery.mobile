@@ -10,6 +10,7 @@ import { MenuResolver } from './menu.resolver';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { MaterialsModule } from '../materials/materials.module';
 import { GoodEditComponent } from './good-edit/good-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -17,6 +18,7 @@ import { GoodEditComponent } from './good-edit/good-edit.component';
   declarations: [MenuListComponent, GoodEditComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MaterialsModule,
     StoreModule.forFeature(fromMenu.menuFeatureKey, menureducer, { metaReducers: fromMenu.metaReducers }),
     EffectsModule.forFeature([MenuEffects])

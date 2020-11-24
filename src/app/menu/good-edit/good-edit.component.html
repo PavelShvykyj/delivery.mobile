@@ -1,72 +1,82 @@
 <div class="card text-white bg-dark">
   <div class="card-header  d-flex flex-row align-items-center pb-2">
     <img *ngIf="data.item.picture" class="mat-card-avatar" [src]='data.item.picture' alt="Card image cap">
-    <img *ngIf="!data.item.picture" class="mat-card-avatar" [src]='defoultpicture' alt="Card image cap">
     
-    <p class="mb-0 ml-2 text-center text-justify ml-3"> {{ data.item.mName }} </p>
+    
+    <p class="mb-0 ml-2 text-center text-justify ml-3 text-warning"> {{ data.item.mName }} </p>
     
   </div>
   <div class="card-body pt-2  px-2 ">
 
-    <ul class="list-group list-group-flush mat-accent">
-      <li class="list-group-item mat-accent">
+    <ng-container *ngIf="priceData$ | async as priceData">
+      <form [formGroup]="form">
+    
+      <ul class="list-group list-group-flush mat-accent">
+      
+      <li class="list-group-item mat-accent px-2">
         <!-- <p class="mb-0 ml-2 text-center text-justify">Размер:</p> -->
+        <ng-container *ngIf="sizeData$ | async as sizeData">
         <div class="input-group mb-1">
-            <div class="input-group-prepend align-items-stretch">
-                <span class="input-group-text">Размер:</span>
-                <div class="btn-group" role="group" aria-label="">
-                    <button class="mat-any-size" mat-raised-button color='primaty'>30</button>
-                    <button class="mat-any-size" mat-raised-button color='accent'>40</button>
-                    <button class="mat-any-size" mat-raised-button color='primaty'>50</button>
+            <div class="input-group-prepend d-flex flex-fill">
+                <span class="input-group-text flex-fill bg-dark text-warning border-0">Размер:</span>
+                <div class="btn-group d-flex flex-fill" role="group" aria-label="">
+                    <button *ngFor="let size of sizeData" class="flex-fill mat-any-size" mat-raised-button [color]="size==_size ? 'accent' : ''"  (click)="OnSizeSelect(size)">{{sizeNames[size]}}</button>
                 </div>
             </div>
         </div>  
-     </li>
-      <li class="list-group-item mat-accent">
-        <!-- <p class="mb-0 ml-2 text-center text-justify">Тип:</p> -->
+      </ng-container>  
+      </li>
+    
+      <li class="list-group-item mat-accent px-2">
+        <ng-container *ngIf="typesData$ | async as typesData">
         <div class="input-group mb-1 ">
-            <div class="input-group-prepend ">
-                <span class="input-group-text">Тип:</span>
-                <div class="btn-group" role="group" aria-label="">
-                    <button class="mat-any-size" mat-raised-button color='accent'>Фитнесс</button>
-                    <button class="mat-any-size" mat-raised-button color='primaty'>Обычная</button>
+            <div class="input-group-prepend d-flex flex-fill">
+                <span class="input-group-text flex-fill bg-dark text-warning border-0">Тип:</span>
+                <div class="btn-group d-flex flex-fill" role="group" aria-label="">
+                    <button *ngFor="let type of typesData" class="mat-any-size flex-fill" mat-raised-button [color]="type==_type ? 'accent' : ''" (click)="OnTypeSelect(type)">{{typeNames[type] }}</button>
                 </div>
             </div>
-        </div>        
+        </div> 
+        </ng-container>       
       </li>
 
-      <li class="list-group-item mat-accent">
+      <li class="list-group-item mat-accent px-2">
         <!-- <p class="mb-0 text-center text-justify">Количество:</p> -->
         <div class="input-group">
             <div class="input-group-prepend ">
-                <span class="input-group-text">Кол.-во:</span>
-                <button class="mat-any-size" mat-raised-button color='primaty'>+</button>
+                <span class="input-group-text bg-dark text-warning border-0">Кол.-во:</span>
+                <button class="mat-any-size" mat-raised-button color='accent' (click)="Onuantity(-1)">-</button>
             </div>
       
-            <input type="number" class="form-control" placeholder="Количество" aria-label="Example text with button addon" aria-describedby="button-addon1">
+            <input formControlName="_quantity"  type="number" class="form-control bg-dark text-warning" placeholder="Количество" aria-label="Example text with button addon" aria-describedby="button-addon1">
 
             <div class="input-group-append ">
-                <button class="mat-any-size" mat-raised-button color='primaty'>-</button>
+                <button class="mat-any-size" mat-raised-button color='accent' (click)="Onuantity(1)">+</button>
             </div>
 
         </div>      
       </li>
-      <li class="list-group-item mat-accent">
-        <div class="input-group-sm">
-            <div class="input-group-prepend ">
-                <span class="input-group-text">Цена:</span>
-                <span class="input-group-text">160грн.</span>
-                <span class="input-group-text">Сумма:</span>
-                <span class="input-group-text">320грн.</span>
+      <li class="list-group-item mat-accent px-2 d-flex">
+        <div class="input-group">
+            <div class="input-group-prepend d-flex flex-fill">
+                
+                <span class="input-group-text flex-fill bg-dark text-warning border-0">Цена: {{_price}}</span>
+                <span class="input-group-text flex-fill bg-dark text-warning border-0">Сумма: {{_summ}}</span>
             </div>    
         </div> 
       </li>
     </ul>
+    </form>
+    </ng-container>
+
+    <ng-container *ngIf="!(priceData$ | async) as priceData">
+      <h4>Извините, блюдо временно недоступно...</h4>
+    </ng-container>
   </div>
   <div class="card-footer d-flex flex-row justify-content-between">
     <!-- <button type="button" class="btn-sm btn-secondary">Сохранить</button>
     <button type="button" class="btn-sm btn-secondary">Отмена</button> -->
     <button mat-raised-button color='accent' (click)="Cancel()">Отмена</button>
-    <button mat-raised-button color='primaty' (click)="Order()">Заказать</button>
+    <button mat-raised-button color='warn' (click)="Order()">Заказать</button>
   </div>
 </div>

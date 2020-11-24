@@ -1,3 +1,5 @@
+@import '~@angular/material/theming';
+
 .sidenav-container {
     height: 100%;
   }
@@ -26,3 +28,12 @@
   .m-avto {
     margin: auto !important;
   }
+
+  
+
+  
+
+  // .mat-toolbar {
+  //   color: map-get($mat-orange, A400);
+  // }
+  

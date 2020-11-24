@@ -3,7 +3,7 @@
         [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="(isHandset$ | async) === false">
-      <mat-toolbar>Menu</mat-toolbar>
+      <mat-toolbar >Menu</mat-toolbar>
       
       <div class="d-flex  justify-content-center align-items-center align-self-center" *appShellRender> 
         <span class="m-avto"></span>
@@ -12,9 +12,9 @@
       </div>
       
       <mat-nav-list *appShellNoRender>
-        <a mat-list-item routerLink="home"> Описание </a> 
+        <a mat-list-item routerLink="home" class="text-warning"> Описание </a> 
         <ng-container *ngIf="meinelements$ | async as mainmenu">
-          <a mat-list-item *ngFor="let item of mainmenu" (click)="OnMenuItemClick(item.id)"> {{ item.mName}} </a> 
+          <a class="text-warning" mat-list-item *ngFor="let item of mainmenu" (click)="OnMenuItemClick(item.id)"> {{ item.mName}} </a> 
         </ng-container>
 
         <ng-container *ngIf="!(meinelements$ | async) as mainmenu">
@@ -31,15 +31,16 @@
     <mat-sidenav-content>
       <mat-toolbar color='primary'>
         <button
+          class="no-outline"
           type="button"
           aria-label="Toggle sidenav"
           mat-icon-button
           (click)="drawer.toggle()"
           *ngIf="isHandset$ | async">
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+          <mat-icon  aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <img src="favicon.ico" class="header-image mx-1"> 
-        <span>Чили доставка</span>
+        <span >Чили доставка</span>
       </mat-toolbar>
       <!-- Add Content 
        Here -->

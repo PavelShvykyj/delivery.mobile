@@ -1,13 +1,11 @@
 import { IBaseGood } from './base.good';
 
-export interface IMobileGood  {
+export interface IMobileGood extends IMobileBitmapData  {
     id: string | undefined,
     parentid:string | undefined,
     isFolder:boolean,
     mName: string,
-    picture?:string,
-    mCategory?:number,
-    mNumber?:number
+    picture?:string
 }
 
 export interface IMobilePriceElement {
@@ -16,14 +14,21 @@ export interface IMobilePriceElement {
     bitmap:number
 }
 
-export interface IMobileData {
+export interface IMobilePriceData extends IMobilePriceElement {
+    mData : IMobileBitmapData
+}
+
+export interface IMobileBitmapData {
+    mCategory?:number,
+    mType?:number,
+    mNumber?:number,
+    mSize?:number
+}
+
+export interface IMobileData extends IMobileBitmapData {
     id:string,
     parentid:string | undefined,
     isFolder:boolean,
-    mCategory:number,
-    mType:number,
-    mNumber:number,
-    mSize:number,
     price:number
     bitmap?:number
     mName?:string,

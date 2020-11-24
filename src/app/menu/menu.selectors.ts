@@ -1,8 +1,35 @@
-import { IMobileGood } from './../models/mobile.good';
+import { IMobileBitmapData, IMobileGood, IMobilePriceElement } from './../models/mobile.good';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { MenuState } from './reducers';
 import * as fromMenu from './reducers/index';
-import { min } from 'rxjs/operators';
+import { min, filter, map } from 'rxjs/operators';
+
+
+// export function MDataBitMap(el:IMobileData| IWEBGood) : number {
+  
+//     let result = 0;
+//     result = result | ((el.mCategory & 0b1111) << 17); // 21-18  mCategory - 4bit - Category (non-0)
+//     result = result | ((el.mNumber & 0b1111111111) << 7) // 17-8  mNumber - 10bit - num in Category
+//     result = result | ((el.mType & 0b1111) << 3) // 7-4  mType - 4bit - type (non-0)
+//     result = result | (el.mSize & 0b111)  // 3-1  mSize - 3bit - 50cm-3 40cm-2 30cm-1 non-0
+//     //console.log('bit map',result, result.toString(2));
+//     return result;
+//   }
+
+
+
+export function GetMobileBitmapData(bitmap:number) : IMobileBitmapData {
+
+   const mCategory = (bitmap & 0b111100000000000000000) >> 17;
+   const mNumber   = (bitmap & 0b000011111111110000000) >> 7;
+   const mType     = (bitmap & 0b000000000000001111000) >> 3;
+   const mSize     = (bitmap & 0b000000000000000000111) ;
+   console.log({mCategory,mNumber,mType,mSize});
+
+   return {mCategory,mNumber,mType,mSize};
+
+
+} 
 
 export function SortBynumber(el1:IMobileGood,el2:IMobileGood) {
     if (el1.mNumber>el2.mNumber) {
@@ -49,6 +76,15 @@ export const selectAllPrice = createSelector(
     PriceState,
     fromMenu.priceSelectAll 
 )
+
+export const selectGoodPrices = createSelector(
+    selectAllPrice,
+    (state,props) => {
+        return state.map(el=> { return {...el, mData : GetMobileBitmapData(el.bitmap)}} )
+                    .filter(el=> {return (el.mData.mCategory == props.mCategory) && (el.mData.mNumber == props.mNumber)});
+    }
+)
+
 
 export const areAllMenuLoaded = createSelector(
     selectMenuState,

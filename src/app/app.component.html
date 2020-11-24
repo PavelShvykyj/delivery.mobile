@@ -47,11 +47,13 @@
       
       
 
-      <ng-container class="d-flex flex-column justify-content-center align-items-center"> 
+      <!-- <ng-container class="d-flex flex-column justify-content-center align-items-center"> 
         <router-outlet></router-outlet>
-      </ng-container>
-  
-      <div class="d-flex  justify-content-center align-items-center align-self-center" *appShellRender> 
+      </ng-container> -->
+      
+      <router-outlet></router-outlet>
+
+      <div class="d-flex flex-column justify-content-center align-items-center align-self-center" *appShellRender> 
         <span class="m-avto"></span>
         <mat-spinner ></mat-spinner>
         <span class="m-avto"></span>

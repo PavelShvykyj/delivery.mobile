@@ -32,12 +32,14 @@ export interface MenuState  {
   Goods:IGoods,
   Price:IPrice,
   AllMenuLoaded:boolean,
-  CurrentFolder:string | undefined
+  CurrentFolder:string | undefined,
+  ParentFolder:string | undefined,
 }
 
 export const initialState = { 
   AllMenuLoaded: false,
   CurrentFolder:"",
+  ParentFolder:"",
   Goods:GoodsinitialState,
   Price:PriceinitialState
 }
@@ -54,7 +56,7 @@ function LoadAllMenu (state:MenuState,action):MenuState  {
 
 function ChangeCurrentFolder (state:MenuState,action):MenuState  {
  
-  return {...state,CurrentFolder:action.id};
+  return {...state,ParentFolder:action.parentid, CurrentFolder:action.id,};
 }
 
 export const MenuReducer = createReducer(

@@ -2,7 +2,7 @@ import { isPlatformServer } from '@angular/common';
 import { IWEBGood } from 'src/app/models/web.good';
 import { map, mergeMap, scan, tap, throttleTime, concatMap, take, share } from 'rxjs/operators';
 
-import { Component, ViewChild, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, ViewChild, OnInit, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling' 
@@ -26,9 +26,12 @@ export class MenuListComponent implements OnInit {
   @ViewChild(CdkVirtualScrollViewport)
   viewport : CdkVirtualScrollViewport 
   theEnd = false;
+  isSkolledDownSubj = new BehaviorSubject(false);
+  isSkolledDown$ : Observable<boolean> = this.isSkolledDownSubj.asObservable();
   offset = new BehaviorSubject(null);
   infinite : Observable<any[]>;
   currentFolder : string = "";
+  parentFolder : string = "";
   defoultpicture : string = "https://firebasestorage.googleapis.com/v0/b/chilidelivery-42f84.appspot.com/o/webgoodpicures%2F5.jpg?alt=media&token=9c93dd85-301f-4a7c-ad72-24592aa5b8c5";  
 
 
@@ -55,18 +58,23 @@ export class MenuListComponent implements OnInit {
     this.infinite = batchMap.pipe(map(v=> Object.values(v)));
    }
 
+ 
   ngOnInit(): void {
     if ( !isPlatformServer(this.plaformid) ) {  
       this.store.pipe(select(selectCurrentFolder)).subscribe(f=>{
-        this.currentFolder = f;
+        this.currentFolder = f.CurrentFolder;
+        this.parentFolder = f.ParentFolder;
         this.Init();
+       
     }) 
   }}
+
+  
 
   OnElelementClick(item: IWEBGood) {
     
     if (item.isFolder) {
-      this.store.dispatch(menuFolderSelected({id:item.id}));
+      this.store.dispatch(menuFolderSelected({id:item.id,parentid: item.parentid}));
       return 
     }
 
@@ -92,6 +100,8 @@ export class MenuListComponent implements OnInit {
 
   nextBatch(e, g) {
     
+    this.isSkolledDownSubj.next(e>=3) 
+
     if(this.theEnd) {
       return
     }
@@ -157,5 +167,13 @@ export class MenuListComponent implements OnInit {
     return i;
   }
 
+  FolderUp() {
+    /// получить ротеля по елементу
+    this.store.dispatch(menuFolderSelected({id:this.parentFolder,parentid:""}));
+  }
+
+  ScrollToStart() {
+    this.viewport.scrollToIndex(0);
+  }
 
 }

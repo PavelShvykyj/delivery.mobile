@@ -3,8 +3,8 @@
 $background-color: map-get($mat-grey, 700);
 
 cdk-virtual-scroll-viewport {
-    height: 95vh;
-    width: 95vw;
+    height: calc(100vh - 56px);
+    width: 100%;
     margin:  auto;
     display: flex;
     flex-direction: column;
@@ -56,5 +56,12 @@ cdk-virtual-scroll-viewport {
   
   .card-img-top {
     height: 150px !important;
+  }
+
+  .menu-footer-toolar {
+      height: 0px;
+      opacity: 50%;
+      transform: translateY(-56px);
+      z-index: 5;
   }
   

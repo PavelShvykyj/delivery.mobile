@@ -92,7 +92,7 @@ export const areAllMenuLoaded = createSelector(
 
 export const selectCurrentFolder = createSelector(
         selectMenuState,
-        state => state.CurrentFolder);
+        state => {return {CurrentFolder:state.CurrentFolder, ParentFolder: state.ParentFolder}});
     
 export const selectGoodsBloc = createSelector(
     selectAllMenu,
@@ -103,7 +103,7 @@ export const selectGoodsBloc = createSelector(
         
         goods = goods.filter(el => {
 
-        return el.parentid==folder});
+        return el.parentid==folder.CurrentFolder});
         
         goods.sort((el1,el2)=> SortBynumber(el1,el2));
 

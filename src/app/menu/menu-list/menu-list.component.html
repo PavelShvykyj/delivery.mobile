@@ -27,15 +27,17 @@
 
   </cdk-virtual-scroll-viewport>
   
-  <div class="d-flex flex-row menu-footer-toolar">
-      <button *ngIf="currentFolder  != ''" mat-mini-fab class="ml-4 no-outline" (click)="FolderUp()">
+  <div class="d-flex flex-row justify-content-around menu-footer-buttons">
+      
+      <button *ngIf="currentFolder  != ''" mat-mini-fab class="mx-4 no-outline" (click)="FolderUp()">
         <mat-icon>subdirectory_arrow_left</mat-icon>
       </button>
       <ng-container *ngIf="isSkolledDown$ | async as isSkrolledDown">
-        <button *ngIf="isSkrolledDown" mat-mini-fab class="ml-4 no-outline" (click)="ScrollToStart()">
+        <button *ngIf="isSkrolledDown" mat-mini-fab class="mx-4 no-outline" (click)="ScrollToStart()">
           <mat-icon>home</mat-icon>
         </button>
       </ng-container>
+      <span class="m-avto"></span>
   </div>      
     
   

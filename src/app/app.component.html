@@ -40,7 +40,18 @@
           <mat-icon  aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <img src="favicon.ico" class="header-image mx-1"> 
-        <span >Чили доставка</span>
+        
+        <span *ngIf="!searchMode">Чили доставка</span>
+        <span class="m-avto"></span>
+        <button *ngIf="!searchMode" mat-icon-button (click)="SearchMode()"><mat-icon>search</mat-icon></button>
+        
+        <div *ngIf="searchMode" class="input-group input-group-sm ">
+          <input #search class="form-control form-control-sm no-outline" type="text" placeholder="по имени" (input)="OnFilterChange()" [(ngModel)]="NameFilterValue">
+          <div class="input-group-append">
+            <button   class="btn text-light py-0" (click)="SearchMode(); ClearFilter()"><mat-icon class="p-0 m-0  mat-any-size">clear</mat-icon> </button>    
+          </div>
+        </div>
+        
       </mat-toolbar>
       <!-- Add Content 
        Here -->

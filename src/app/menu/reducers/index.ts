@@ -13,8 +13,9 @@ import {
 
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { IWEBGood } from 'src/app/models/web.good';
-import { allMenuLoaded, menuFolderSelected, menuMainFolderSelected } from '../menu.actions';
+import { allMenuLoaded, changeFilerName, menuFolderSelected, menuMainFolderSelected } from '../menu.actions';
 import { IMobileGood, IMobilePriceElement } from 'src/app/models/mobile.good';
+import { state } from '@angular/animations';
 
 
 export const menuFeatureKey = 'menu';
@@ -32,14 +33,16 @@ export interface MenuState  {
   Goods:IGoods,
   Price:IPrice,
   AllMenuLoaded:boolean,
-  CurrentFolder:string | undefined,
-  ParentFolder:string | undefined,
+  CurrentFolder:string ,
+  ParentFolder:string ,
+  NameFilter:string
 }
 
 export const initialState = { 
   AllMenuLoaded: false,
   CurrentFolder:"",
   ParentFolder:"",
+  NameFilter:"",
   Goods:GoodsinitialState,
   Price:PriceinitialState
 }
@@ -56,15 +59,16 @@ function LoadAllMenu (state:MenuState,action):MenuState  {
 
 function ChangeCurrentFolder (state:MenuState,action):MenuState  {
  
-  return {...state,ParentFolder:action.parentid, CurrentFolder:action.id,};
+  return {...state,ParentFolder:action.parentid, CurrentFolder:action.id};
 }
 
 export const MenuReducer = createReducer(
   initialState,
   on(allMenuLoaded,(state,action)=> LoadAllMenu(state,action)),
   on(menuMainFolderSelected,(state,action)=> ChangeCurrentFolder(state,action)),
-  on(menuFolderSelected,(state,action)=> ChangeCurrentFolder(state,action))
-  );
+  on(menuFolderSelected,(state,action)=> ChangeCurrentFolder(state,action)),
+  on(changeFilerName,(state,action)=>  {return {...state, NameFilter: action.filter }})
+);
 
 
   export function menureducer(state: MenuState | undefined, action: Action) {

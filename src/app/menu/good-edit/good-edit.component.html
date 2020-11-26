@@ -48,7 +48,7 @@
                 <button class="mat-any-size" mat-raised-button color='accent' (click)="Onuantity(-1)">-</button>
             </div>
       
-            <input formControlName="_quantity"  type="number" class="form-control bg-dark text-warning" placeholder="Количество" aria-label="Example text with button addon" aria-describedby="button-addon1">
+            <input formControlName="_quantity" disabled type="number" class="form-control bg-dark text-warning" placeholder="Количество" aria-label="Example text with button addon" aria-describedby="button-addon1">
 
             <div class="input-group-append ">
                 <button class="mat-any-size" mat-raised-button color='accent' (click)="Onuantity(1)">+</button>
@@ -58,11 +58,14 @@
       </li>
       <li class="list-group-item mat-accent px-2 d-flex">
         <div class="input-group">
-            <div class="input-group-prepend d-flex flex-fill">
+            <div *ngIf="_price!=0" class="input-group-prepend d-flex flex-fill">
                 
                 <span class="input-group-text flex-fill bg-dark text-warning border-0">Цена: {{_price}}</span>
                 <span class="input-group-text flex-fill bg-dark text-warning border-0">Сумма: {{_summ}}</span>
-            </div>    
+            </div>  
+            <div *ngIf="_price==0" class="input-group-prepend d-flex flex-fill">
+              <span class="input-group-text flex-fill bg-danger text-light border-0">Временно недоступна </span>
+            </div>  
         </div> 
       </li>
     </ul>
@@ -77,6 +80,6 @@
     <!-- <button type="button" class="btn-sm btn-secondary">Сохранить</button>
     <button type="button" class="btn-sm btn-secondary">Отмена</button> -->
     <button mat-raised-button color='accent' (click)="Cancel()">Отмена</button>
-    <button mat-raised-button color='warn' (click)="Order()">Заказать</button>
+    <button *ngIf="_price!=0" mat-raised-button color='warn' (click)="Order()">Заказать</button>
   </div>
 </div>

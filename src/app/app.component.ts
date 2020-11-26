@@ -1,16 +1,16 @@
 import { IMobileGood } from './models/mobile.good';
-import { IWEBGood } from 'src/app/models/web.good';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, ViewChild, Inject, PLATFORM_ID, OnInit } from '@angular/core';
+import { Component, ViewChild, Inject, PLATFORM_ID, OnInit, ElementRef } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { map, shareReplay, take, tap } from 'rxjs/operators';
+import { map, shareReplay, tap } from 'rxjs/operators';
 import { AppState } from './reducers';
-import { selectByParent, selectTopFolders } from './menu/menu.selectors';
-import { menuMainFolderSelected, loadAllMenu } from './menu/menu.actions';
+import { selectTopFolders } from './menu/menu.selectors';
+import { menuMainFolderSelected, loadAllMenu, changeFilerName } from './menu/menu.actions';
 import { MatDrawer } from '@angular/material/sidenav';
 import { isPlatformServer } from '@angular/common';
 import { Router } from '@angular/router';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-root',
@@ -19,9 +19,13 @@ import { Router } from '@angular/router';
 })
 export class AppComponent  {
   title = 'delivery-mobile';
+  NameFilterValue = "";
+  searchMode = false;
 
   @ViewChild('drawer')
   nav : MatDrawer 
+
+  @ViewChild('search') searchElement: ElementRef;
 
   isHandset:boolean = true;
 
@@ -43,7 +47,33 @@ constructor(private breakpointObserver: BreakpointObserver,
       }
   }
 
- 
+  OnFilterChange() {
+    let reg = "";
+    if (this.NameFilterValue != "") {
+      reg = ".*"+this.NameFilterValue.trim().toUpperCase().replace(/\s+/g, ".*")+".*" 
+    } 
+    
+    this.store.dispatch(changeFilerName({filter:reg}));
+    if (!this.router.isActive("Menu",true)) {
+      this.router.navigateByUrl("Menu");
+    } 
+  }
+
+  SearchMode() {
+    this.searchMode = !this.searchMode;
+    if (this.searchMode) {
+      setTimeout(()=>{ 
+        this.searchElement.nativeElement.focus();
+      },10);  
+    }
+  }
+
+  ClearFilter() {
+    if(this.NameFilterValue != "") {
+      this.store.dispatch(changeFilerName({filter:""}));
+    }
+    this.NameFilterValue = "";
+  }
 
   OnMenuItemClick(id) {
     this.store.dispatch(menuMainFolderSelected({id:id,parentid:""}));

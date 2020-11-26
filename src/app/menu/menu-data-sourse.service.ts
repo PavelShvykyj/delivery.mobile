@@ -1,25 +1,28 @@
 import { IMobilePriceElement } from './../models/mobile.good';
 import { from, Observable, of } from 'rxjs';
-import { IWEBGood } from '../models/web.good';
+
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/internal/operators/map';
-import { share, take } from 'rxjs/operators';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { environment } from 'src/environments/environment';
 import { IMobileGood } from '../models/mobile.good';
-import { promise } from 'protractor';
+
+import * as db from 'firebase/app';
+import 'firebase/database';
+
+db.initializeApp(environment.firebase);
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuDataSourseService {
 
-  constructor(private db : AngularFireDatabase) { }
+  constructor() { }
 
   GetAllMenu() : Observable<any[]> {
 
-    let tasks = []; 
-   let GoodsTask : Promise<IMobileGood[]> = this.db.database.ref('goods').orderByChild('mName').once('value').then(v=> 
+   const database = db.database();  
+   let tasks = []; 
+   let GoodsTask : Promise<IMobileGood[]> = database.ref('goods').orderByChild('mName').once('value').then(v=> 
       {
         let data: IMobileGood[] = v.val();
         let index : number = 0;
@@ -27,7 +30,7 @@ export class MenuDataSourseService {
       });
 
    tasks.push(GoodsTask);   
-   let PriceTask : Promise<IMobilePriceElement[]> = this.db.database.ref('price').once('value').then(v=> 
+   let PriceTask : Promise<IMobilePriceElement[]> = database.ref('price').once('value').then(v=> 
     {
       let data: IMobilePriceElement[] = v.val();
       

@@ -5,9 +5,9 @@ import { AppState } from 'src/app/reducers';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { selectGoodPrices } from '../menu.selectors';
-import { map, take, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
+
 
 function simpleUniq<t>(s: t[]) : t[]  {
   const uniq : t[] = [];
@@ -27,7 +27,7 @@ function simpleUniq<t>(s: t[]) : t[]  {
 })
 export class GoodEditComponent implements OnInit {
 
-  defoultpicture: string = "https://firebasestorage.googleapis.com/v0/b/chilidelivery-42f84.appspot.com/o/webgoodpicures%2F5.jpg?alt=media&token=9c93dd85-301f-4a7c-ad72-24592aa5b8c5";
+  //defoultpicture: string = "https://firebasestorage.googleapis.com/v0/b/chilidelivery-42f84.appspot.com/o/webgoodpicures%2F5.jpg?alt=media&token=9c93dd85-301f-4a7c-ad72-24592aa5b8c5";
   priceData$: Observable<IMobilePriceData[]>;
   _priceData: IMobilePriceData[];
 

@@ -4,9 +4,9 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //////////////////// Fire ////////////////////////////////////
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+// import { AngularFireModule } from '@angular/fire';
+// import { AngularFireDatabaseModule } from '@angular/fire/database';
+// import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 //////////////////  ngrx //////////////////////////////
 import { StoreModule } from '@ngrx/store';
@@ -29,6 +29,7 @@ import { HomeComponent } from './home/home.component';
 import { MaterialsModule } from './materials/materials.module';
 import { AppShellRenderDirective } from './directives/appshell-render.directive';
 import { AppShellNoRenderDirective } from './directives/appshell-no-render.directive';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -41,13 +42,14 @@ import { AppShellNoRenderDirective } from './directives/appshell-no-render.direc
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
+    FormsModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([AppEffects]),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireDatabaseModule,
+    // AngularFireModule.initializeApp(environment.firebase),
+    // AngularFirestoreModule,
+    // AngularFireDatabaseModule,
     ShareModule,
     MenuModule,
     StoreRouterConnectingModule.forRoot({

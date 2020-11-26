@@ -24,8 +24,6 @@ export function GetMobileBitmapData(bitmap:number) : IMobileBitmapData {
    const mNumber   = (bitmap & 0b000011111111110000000) >> 7;
    const mType     = (bitmap & 0b000000000000001111000) >> 3;
    const mSize     = (bitmap & 0b000000000000000000111) ;
-   console.log({mCategory,mNumber,mType,mSize});
-
    return {mCategory,mNumber,mType,mSize};
 
 
@@ -67,7 +65,7 @@ export const selectAllMenu = createSelector(
 
 export const selectAllFolders = createSelector(
     selectAllMenu,
-    goods => {console.log('selectAllFolders',goods); return goods.filter(el => {return el.isFolder})} 
+    goods => {return goods.filter(el => {return el.isFolder})} 
 )
 
 export const selectTopFolders = createSelector(
@@ -95,18 +93,30 @@ export const areAllMenuLoaded = createSelector(
 
 export const selectCurrentFolder = createSelector(
         selectMenuState,
-        state => {return {CurrentFolder:state.CurrentFolder, ParentFolder: state.ParentFolder}});
+        state => {return {CurrentFolder:state.CurrentFolder, ParentFolder: state.ParentFolder, Filter: state.NameFilter}});
     
+export const selectFilter = createSelector(
+    selectMenuState,
+    state => state.NameFilter
+)
+
 export const selectGoodsBloc = createSelector(
     selectAllMenu,
     selectCurrentFolder,
+    
     (state,folder,props) => { 
         let goods : IMobileGood[] = state;
         
-        
-        goods = goods.filter(el => {
+        if (folder.Filter == "" || folder.Filter == undefined) {
+            goods = goods.filter(el => {
+                return el.parentid==folder.CurrentFolder});
+                
+        }
+        else {
+            goods = goods.filter(el => {return (!el.isFolder && el.mName.toUpperCase().search(folder.Filter)!=-1)});
+            
+        }
 
-        return el.parentid==folder.CurrentFolder});
         
         goods.sort((el1,el2)=> SortBynumber(el1,el2));
 
@@ -114,10 +124,10 @@ export const selectGoodsBloc = createSelector(
         if (props.name==null || props.name==undefined || props.name=="" ) {
             StartIndex = 0;
         } else {
-            StartIndex = Math.min(goods.indexOf(goods.find(el => (el.mNumber == props.name)))+1,goods.length-1);
+            StartIndex = Math.min(goods.indexOf(goods.find(el => (el.mNumber == props.name)))+1,goods.length);
         }
-        
-        goods = goods.slice(StartIndex,Math.min(StartIndex+props.lenth, goods.length-1));
+ 
+        goods = goods.slice(StartIndex,Math.min(StartIndex+props.lenth, goods.length));
         
         return goods
     }); 

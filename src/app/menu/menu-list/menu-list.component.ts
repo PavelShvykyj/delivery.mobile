@@ -3,7 +3,7 @@ import { IWEBGood } from 'src/app/models/web.good';
 import { map, mergeMap, scan, tap, throttleTime, concatMap, take, share } from 'rxjs/operators';
 
 import { Component, ViewChild, OnInit, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+
 
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling' 
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -35,7 +35,7 @@ export class MenuListComponent implements OnInit {
   defoultpicture : string = "https://firebasestorage.googleapis.com/v0/b/chilidelivery-42f84.appspot.com/o/webgoodpicures%2F5.jpg?alt=media&token=9c93dd85-301f-4a7c-ad72-24592aa5b8c5";  
 
 
-  constructor(private db : AngularFirestore,
+  constructor(
     private dialog: MatDialog,
     private store: Store<AppState>, @Inject(PLATFORM_ID) private plaformid) {
     if ( !isPlatformServer(this.plaformid) ) {
@@ -46,6 +46,7 @@ export class MenuListComponent implements OnInit {
    Init() {
     this.theEnd = false;
     this.offset = new BehaviorSubject(null);
+    
     const batchMap = this.offset.pipe(
       
       throttleTime(500),
@@ -62,6 +63,7 @@ export class MenuListComponent implements OnInit {
   ngOnInit(): void {
     if ( !isPlatformServer(this.plaformid) ) {  
       this.store.pipe(select(selectCurrentFolder)).subscribe(f=>{
+        this.ScrollToStart();
         this.currentFolder = f.CurrentFolder;
         this.parentFolder = f.ParentFolder;
         this.Init();
@@ -89,8 +91,7 @@ export class MenuListComponent implements OnInit {
     DialogRef.afterClosed().subscribe(res => {
       if (res.answer != 'save') {
         return;
-      }
-      console.log(res);});
+      }});
 
       //this.store.dispatch(updateWebgood({ good: res.data }));
   
@@ -138,29 +139,6 @@ export class MenuListComponent implements OnInit {
                       }
                       return {...acc, [id]:data };},{}); }),
                       );
-        
-
-    // return this.db.collection('web.goods', ref => ref
-    //     .where("parentid","==",this.currentFolder)
-    //     .orderBy('name')
-    //     .startAfter(lastSeen)
-    //     .limit(batchSize))
-    //       .snapshotChanges().pipe(
-    //         tap(arr => ( arr.length ? null : (this.theEnd = true) )),
-    //         map(arr => {return arr.filter(el=> !(el.payload.doc.data() as IWEBGood).isDeleted). reduce((acc,cur) => {
-              
-    //           const id = cur.payload.doc.id;
-    //           const data = 
-    //           {
-    //             ...(cur.payload.doc.data() as object),
-                
-    //             id: id
-    //           }
-    //           return {...acc, [id]:data };},{}); }),
-    //           take(1),
-              
-    //           share()
-    //       );
   } 
 
   trackByIdx(i) {
@@ -184,7 +162,10 @@ export class MenuListComponent implements OnInit {
   }
 
   ScrollToStart() {
-    this.viewport.scrollToIndex(0);
+    if (this.viewport != undefined) {
+      this.viewport.scrollToIndex(0); 
+    }
+    
   }
 
 }

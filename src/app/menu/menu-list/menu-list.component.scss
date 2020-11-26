@@ -3,12 +3,8 @@
 $background-color: map-get($mat-grey, 700);
 
 cdk-virtual-scroll-viewport {
-    height: calc(100vh - 56px);
+    height: calc(100vh - 96px);
     width: 100%;
-    margin:  auto;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
     
     justify-content: center;
     align-items: center;
@@ -58,10 +54,16 @@ cdk-virtual-scroll-viewport {
     height: 150px !important;
   }
 
-  .menu-footer-toolar {
+  .menu-footer-buttons {
+      display: inline-block;
       height: 0px;
-      opacity: 50%;
-      transform: translateY(-56px);
+      max-height: 0px;
+      opacity: .7 !important;
+      transform: translateY(-86px);
       z-index: 5;
   }
   
+  ::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}

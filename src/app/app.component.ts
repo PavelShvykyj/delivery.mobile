@@ -46,7 +46,7 @@ constructor(private breakpointObserver: BreakpointObserver,
  
 
   OnMenuItemClick(id) {
-    this.store.dispatch(menuMainFolderSelected({id:id}));
+    this.store.dispatch(menuMainFolderSelected({id:id,parentid:""}));
     
     if (this.isHandset) {
       this.nav.toggle();  

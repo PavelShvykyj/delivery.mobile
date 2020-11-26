@@ -52,6 +52,7 @@ export const GoodsState = createSelector(
     selectMenuState,
     state => state.Goods);
 
+
 export const PriceState = createSelector(
     selectMenuState,
     state => state.Price);
@@ -61,6 +62,8 @@ export const selectAllMenu = createSelector(
     GoodsState,
     fromMenu.selectAll 
 )
+
+
 
 export const selectAllFolders = createSelector(
     selectAllMenu,
@@ -137,5 +140,13 @@ export const selectByParent = createSelector(
         return goods;
     }
 );
+
+export const selectGoodByID = createSelector(
+    GoodsState,
+    (state,props) => {return state.entities[props.id]});
+
+export const selectPriceByID = createSelector(
+    PriceState,
+    (state,props) => {return state.entities[props.id]});
 
 

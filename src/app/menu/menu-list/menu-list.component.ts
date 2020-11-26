@@ -9,7 +9,7 @@ import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling'
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
-import { selectCurrentFolder, selectGoodsBloc } from '../menu.selectors';
+import { selectCurrentFolder, selectGoodByID, selectGoodsBloc } from '../menu.selectors';
 import { menuFolderSelected } from '../menu.actions';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { GoodEditComponent } from '../good-edit/good-edit.component';
@@ -168,8 +168,19 @@ export class MenuListComponent implements OnInit {
   }
 
   FolderUp() {
-    /// получить ротеля по елементу
-    this.store.dispatch(menuFolderSelected({id:this.parentFolder,parentid:""}));
+    
+    if (this.parentFolder == "" ) {
+      if (this.currentFolder != "") {
+        this.store.dispatch(menuFolderSelected({id:"",parentid:""}));
+      }
+      return;
+    }
+    
+    this.store.pipe(
+      select(selectGoodByID,{id:this.parentFolder}),
+      take(1),
+      tap(el=> this.store.dispatch(menuFolderSelected({id:this.parentFolder,parentid:el.parentid})))
+    ).subscribe();
   }
 
   ScrollToStart() {

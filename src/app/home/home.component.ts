@@ -21,7 +21,7 @@ export class HomeComponent {
   }
  
   GoTomenu() {
-    this.store.dispatch(menuMainFolderSelected({id:""}));
+    this.store.dispatch(menuMainFolderSelected({id:"",parentid:""}));
     this.router.navigateByUrl("Menu")
   }
 }

@@ -1,11 +1,8 @@
 import { isPlatformServer } from '@angular/common';
 import { IWEBGood } from 'src/app/models/web.good';
 import { map, mergeMap, scan, tap, throttleTime, concatMap, take, share } from 'rxjs/operators';
-
 import { Component, ViewChild, OnInit, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
-
-
-import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling' 
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling' 
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
@@ -67,14 +64,10 @@ export class MenuListComponent implements OnInit {
         this.currentFolder = f.CurrentFolder;
         this.parentFolder = f.ParentFolder;
         this.Init();
-       
     }) 
   }}
 
-  
-
   OnElelementClick(item: IWEBGood) {
-    
     if (item.isFolder) {
       this.store.dispatch(menuFolderSelected({id:item.id,parentid: item.parentid}));
       return 
@@ -83,9 +76,9 @@ export class MenuListComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.maxHeight = "90vh";
-    dialogConfig.minWidth = "90vw"
+    dialogConfig.maxWidth = "500px"
+    dialogConfig.width = "90vw";
     dialogConfig.panelClass = 'custom-modalbox';
-
     dialogConfig.data = { item }
     const DialogRef: MatDialogRef<GoodEditComponent> = this.dialog.open(GoodEditComponent, dialogConfig);
     DialogRef.afterClosed().subscribe(res => {
@@ -94,13 +87,10 @@ export class MenuListComponent implements OnInit {
       }});
 
       //this.store.dispatch(updateWebgood({ good: res.data }));
-  
-
-
   }
 
   nextBatch(e, g) {
-    
+
     this.isSkolledDownSubj.next(e>=3) 
 
     if(this.theEnd) {

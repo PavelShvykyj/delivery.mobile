@@ -1,24 +1,23 @@
 
 
 <ng-container *ngIf="infinite | async as ds">
-  <cdk-virtual-scroll-viewport itemSize="290" (scrolledIndexChange)='nextBatch($event,(ds[ds.length-1]))'>
-    <li *cdkVirtualFor="let item of ds; let i = index ">
+  <cdk-virtual-scroll-viewport itemSize="290" (scrolledIndexChange)='nextBatch($event,(ds[ds.length-1]))' >
+    <li *cdkVirtualFor="let item of ds; let i = index " >
       <div class="card bg-dark text-warning">
         <div class="c-img  d-flex justify-content-center align-items-center">
-          <img *ngIf="item.picture" class="card-img-top" [src]='item.picture' 
-            alt="Card image cap">
+          <img *ngIf="item.picture" class="card-img-top" [src]='item.picture' (click)='OnElelementClick(item)'>
           
 
           <h3 *ngIf="!item.picture" class="text-justify text-warning" > нет картинки </h3> 
         </div>
         <div  class="card-header c-header  d-flex justify-content-center align-items-center">
-          <h4 *ngIf="!item.isFolder" class="mr-2 mb-1"> {{item.mName}} </h4> 
+          <h4 *ngIf="!item.isFolder" class="mr-2 mb-1" (click)='OnElelementClick(item)'> {{item.mName}} </h4> 
         </div>
         <div class="card-body c-body py-2 d-flex justify-content-center align-items-center">
           <p *ngIf="!item.isFolder" class="mb-1"> тут может быть состав или произвольное описание. </p>
-          <h2 *ngIf="item.isFolder" class="mb-1"> {{item.mName}} </h2>
+          <h2 *ngIf="item.isFolder" class="mb-1" (click)='OnElelementClick(item)'> {{item.mName}} </h2>
         </div>
-        <div class="card-footer c-footer py-1 d-flex justify-content-end align-items-end">
+        <div class="card-footer c-footer py-1 d-flex justify-content-start align-items-end">
           <button mat-raised-button class="no-outline mat-any-size mb-2" color='warn'(click)='OnElelementClick(item)'> ХОЧУ </button>
           <!-- <button class="btn btn-danger btn-sm" (click)='OnElelementClick(item)'> ХОЧУ </button> -->
         </div>
@@ -27,8 +26,8 @@
 
   </cdk-virtual-scroll-viewport>
   
-  <div class="d-flex flex-row justify-content-around menu-footer-buttons">
-      
+  <div class="d-flex justify-content-end menu-footer-buttons">
+      <span class="m-avto"></span>
       <button *ngIf="currentFolder  != ''" mat-mini-fab class="mx-4 no-outline" (click)="FolderUp()">
         <mat-icon>subdirectory_arrow_left</mat-icon>
       </button>
@@ -37,7 +36,7 @@
           <mat-icon>home</mat-icon>
         </button>
       </ng-container>
-      <span class="m-avto"></span>
+      
   </div>      
     
   

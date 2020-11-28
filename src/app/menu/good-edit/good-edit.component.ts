@@ -5,7 +5,7 @@ import { AppState } from 'src/app/reducers';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { selectGoodPrices } from '../menu.selectors';
-import { map, tap } from 'rxjs/operators';
+import { debounceTime, map, tap } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
@@ -61,7 +61,7 @@ export class GoodEditComponent implements OnInit {
 
     this.form = new FormGroup({
       quantity: new FormControl(1, Validators.required),
-      _quantity: new FormControl(1, Validators.required),
+      _quantity: new FormControl( {value: 1, disabled: true}, Validators.required ),
       _size: new FormControl(0, Validators.required),
       _type: new FormControl(0, Validators.required),
       _price: new FormControl(0, Validators.required),
@@ -75,6 +75,7 @@ export class GoodEditComponent implements OnInit {
     );
 
     this.sizeData$ = this.priceData$.pipe(
+      debounceTime(10),
       map(el => {
         const s = el.map(arrel => arrel.mData.mSize);
         return simpleUniq(s).sort();

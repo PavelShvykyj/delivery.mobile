@@ -60,7 +60,6 @@ export class GoodEditComponent implements OnInit {
 
 
     this.form = new FormGroup({
-      quantity: new FormControl(1, Validators.required),
       _quantity: new FormControl( {value: 1, disabled: true}, Validators.required ),
       _size: new FormControl(0, Validators.required),
       _type: new FormControl(0, Validators.required),

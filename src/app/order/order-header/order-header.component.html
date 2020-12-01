@@ -1,0 +1,39 @@
+<mat-card class="fill card bg-dark pt-2">
+    <form [formGroup]="form">
+
+
+        <mat-form-field id='fieldadress' color='accent' class="mb-3 w-fill text-warning bg-dark" appearance="standard">
+            <input required formControlName='addres' #inputadress matInput (blur)="UpdateHeader()">
+            <mat-hint class="text-warning"> Куда доставить заказ ? (Обязательно) </mat-hint>
+            <mat-label class="text-warning">Адресс </mat-label>
+            <button mat-button matPrefix mat-icon-button aria-label="Clear" (click)="ClearAdress()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <div class="spacer"> </div>
+
+        <mat-form-field  color='accent' [matTooltip]="getErrorMessage('phone')" matTooltipClass="error-tooltip"
+            matTooltipPosition='above' id='fieldphone' class="mb-3 w-fill text-warning bg-dark" appearance="standard">
+            <input c prefix="+38 " mask="(000) 000 00 00" required formControlName='phone' #inputphone matInput
+                (blur)="UpdateHeader()">
+
+            <mat-hint class="text-warning"> Как с вами связаться ? (Обязательно) </mat-hint>
+            <mat-label class="text-warning">Телефон</mat-label>
+            <button mat-button matPrefix mat-icon-button aria-label="Clear" (click)="ClearPhone()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <div class="spacer"> </div>
+
+        <mat-form-field id='fieldcomment' color='accent' class="mb-3 w-fill text-warning bg-dark" appearance="standard">
+            <textarea formControlName='comment' #inputcomment matInput (blur)="UpdateHeader()"></textarea>
+            <mat-hint class="text-warning"> Сообщение оператору </mat-hint>
+            <mat-label class="text-warning">Коментарий</mat-label>
+            <button mat-button matPrefix mat-icon-button aria-label="Clear" (click)="ClearComment()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </form>
+</mat-card>

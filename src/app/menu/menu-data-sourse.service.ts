@@ -2,25 +2,19 @@ import { IMobilePriceElement } from './../models/mobile.good';
 import { from, Observable, of } from 'rxjs';
 
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { IMobileGood } from '../models/mobile.good';
-
-import * as db from 'firebase/app';
-import 'firebase/database';
-
-db.initializeApp(environment.firebase);
-
+import { FbService } from '../fb.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuDataSourseService {
 
-  constructor() { }
+  constructor(private db : FbService) { }
 
   GetAllMenu() : Observable<any[]> {
 
-   const database = db.database();  
+   const database =  this.db._fdb.database();  
    let tasks = []; 
    let GoodsTask : Promise<IMobileGood[]> = database.ref('goods').orderByChild('mName').once('value').then(v=> 
       {

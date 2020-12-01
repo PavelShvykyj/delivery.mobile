@@ -1,0 +1,45 @@
+@import '~@angular/material/theming';
+
+
+
+// .ordertoolbar {
+//     background-color: map-get($mat-grey, 600);
+// } 
+
+
+// .ordergoods {
+//     background-color: map-get($mat-grey, 600);;
+// } 
+
+// .orderheader {
+//     background-color: map-get($mat-grey, 600);
+
+// }
+
+.gridelement{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.gridelement-row{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+  
+}
+
+.grid-container {
+    height: calc(100vh - 96px);
+    width: 100%;
+    //background-color:map-get($mat-grey, 600);
+}
+
+
+
+
+.mat-toolbar-row .mat-toolbar-single-row {
+    height: 100% !important;
+}

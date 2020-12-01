@@ -1,0 +1,66 @@
+@import '~@angular/material/theming';
+
+// Create a config with the default typography levels.
+
+
+$config: mat-typography-config($title: mat-typography-level(14px, 14px, 400),
+  $button: mat-typography-level(12px, 12px, 400),
+  $subheading-1: mat-typography-level(13px, 13px, 500));
+
+mat-form-field {
+  
+  font-size: mat-font-size($config, title);
+  line-height: mat-line-height($config, title);
+}
+
+// #fieldadress {
+  
+
+// }
+
+// #fieldphone {
+    
+    
+//   }
+
+// #fieldcomment {
+    
+    
+//   }
+
+
+
+
+
+
+
+.card {
+  align-content: center;
+  justify-content: center;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.toolbar {
+  padding: 1px;
+}
+
+.w-fill {
+  width: 95%;
+}
+
+.fill {
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+
+::ng-deep .error-tooltip {
+  background-color: red !important;
+}

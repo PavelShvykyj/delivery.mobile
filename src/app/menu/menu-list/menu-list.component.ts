@@ -1,5 +1,6 @@
+import { IMobileGood } from './../../models/mobile.good';
 import { isPlatformServer } from '@angular/common';
-import { IWEBGood } from 'src/app/models/web.good';
+
 import { map, mergeMap, scan, tap, throttleTime, concatMap, take, share } from 'rxjs/operators';
 import { Component, ViewChild, OnInit, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling' 
@@ -67,7 +68,7 @@ export class MenuListComponent implements OnInit {
     }) 
   }}
 
-  OnElelementClick(item: IWEBGood) {
+  OnElelementClick(item: IMobileGood) {
     if (item.isFolder) {
       this.store.dispatch(menuFolderSelected({id:item.id,parentid: item.parentid}));
       return 

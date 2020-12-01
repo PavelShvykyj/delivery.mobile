@@ -1,12 +1,10 @@
+import { OrderModule } from './order/order.module';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 
-//////////////////// Fire ////////////////////////////////////
-// import { AngularFireModule } from '@angular/fire';
-// import { AngularFireDatabaseModule } from '@angular/fire/database';
-// import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 //////////////////  ngrx //////////////////////////////
 import { StoreModule } from '@ngrx/store';
@@ -30,6 +28,8 @@ import { MaterialsModule } from './materials/materials.module';
 import { AppShellRenderDirective } from './directives/appshell-render.directive';
 import { AppShellNoRenderDirective } from './directives/appshell-no-render.directive';
 import { FormsModule } from '@angular/forms';
+import { BaseelementsModule } from './baseelements/baseelements.module';
+
 
 
 @NgModule({
@@ -47,16 +47,15 @@ import { FormsModule } from '@angular/forms';
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([AppEffects]),
-    // AngularFireModule.initializeApp(environment.firebase),
-    // AngularFirestoreModule,
-    // AngularFireDatabaseModule,
     ShareModule,
     MenuModule,
+    OrderModule,
+    BaseelementsModule,
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',
       routerState: RouterState.Minimal
     }),
-
+    NgxMaskModule.forRoot(),
     MaterialsModule
     
   ],

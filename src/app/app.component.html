@@ -13,6 +13,7 @@
       
       <mat-nav-list *appShellNoRender>
         <a mat-list-item routerLink="home" class="text-warning"> Описание </a> 
+        <a mat-list-item routerLink="Order" class="text-warning"> Корзина </a> 
         <ng-container *ngIf="meinelements$ | async as mainmenu">
           <a class="text-warning" mat-list-item *ngFor="let item of mainmenu" (click)="OnMenuItemClick(item.id)"> {{ item.mName}} </a> 
         </ng-container>

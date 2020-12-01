@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { MenuListComponent } from './menu/menu-list/menu-list.component';
 import { MenuResolver } from './menu/menu.resolver';
+import { OrderEditComponent } from './order/order-edit/order-edit.component';
 
 
 const routes: Routes = [
@@ -13,11 +14,18 @@ const routes: Routes = [
 
   },
 
+  
   {
     path: 'Home',
     component: HomeComponent
     
   },
+
+  {
+    path: 'Order',
+    component: OrderEditComponent
+  },
+
 
   { 
     path: '**', 

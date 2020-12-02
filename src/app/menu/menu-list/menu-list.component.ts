@@ -11,6 +11,7 @@ import { selectCurrentFolder, selectGoodByID, selectGoodsBloc } from '../menu.se
 import { menuFolderSelected } from '../menu.actions';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { GoodEditComponent } from '../good-edit/good-edit.component';
+import { UpsertOrderRecord } from 'src/app/order/editorder.actions';
 
 const batchSize = 5;
 
@@ -31,7 +32,7 @@ export class MenuListComponent implements OnInit {
   currentFolder : string = "";
   parentFolder : string = "";
   defoultpicture : string = "https://firebasestorage.googleapis.com/v0/b/chilidelivery-42f84.appspot.com/o/webgoodpicures%2F5.jpg?alt=media&token=9c93dd85-301f-4a7c-ad72-24592aa5b8c5";  
-
+  Filter : string = "";
 
   constructor(
     private dialog: MatDialog,
@@ -61,10 +62,13 @@ export class MenuListComponent implements OnInit {
   ngOnInit(): void {
     if ( !isPlatformServer(this.plaformid) ) {  
       this.store.pipe(select(selectCurrentFolder)).subscribe(f=>{
-        this.ScrollToStart();
-        this.currentFolder = f.CurrentFolder;
-        this.parentFolder = f.ParentFolder;
-        this.Init();
+        if ((f.CurrentFolder != this.currentFolder) || (f.Filter!=this.Filter) ) {
+          this.ScrollToStart();
+          this.currentFolder = f.CurrentFolder;
+          this.parentFolder = f.ParentFolder;
+          this.Filter = f.Filter;
+          this.Init();
+        }
     }) 
   }}
 
@@ -83,8 +87,8 @@ export class MenuListComponent implements OnInit {
     dialogConfig.data = { item }
     const DialogRef: MatDialogRef<GoodEditComponent> = this.dialog.open(GoodEditComponent, dialogConfig);
     DialogRef.afterClosed().subscribe(res => {
-      if (res.answer != 'save') {
-        return;
+      if (res.answer == 'order') {
+        this.store.dispatch(UpsertOrderRecord({record: res.record}));
       }});
 
       //this.store.dispatch(updateWebgood({ good: res.data }));

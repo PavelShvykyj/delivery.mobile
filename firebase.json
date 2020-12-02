@@ -10,9 +10,22 @@
     
     "rewrites": [
       {
+        "source": "**/Menu",
+        "destination": "browser/Menu/index.html"
+      },
+
+
+      {
+        "source": "**/Order",
+        "destination": "browser/Order/index.html"
+      },
+
+      {
         "source": "**",
         "destination": "/index.html"
       }
+
+
     ]
   }
 }

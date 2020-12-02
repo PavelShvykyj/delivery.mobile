@@ -51,9 +51,11 @@ function UpsertOrderRecord(state: EditOrderState ,action) {
   } 
   else {
     const findedrecord   = state.goods.entities[record.id];
+    console.log('findedrecord',findedrecord);
     if (findedrecord.quantity+record.quantity > 0) {
-      record.quantity = findedrecord.quantity+record.quantity;
-      return {...state,goods: EditOrderGoodsAdapter.upsertOne(record,state.goods) }  
+      
+      
+      return {...state,goods: EditOrderGoodsAdapter.upsertOne({...record,quantity:findedrecord.quantity+record.quantity},state.goods) }  
     } 
     else {
       return {...state,goods: EditOrderGoodsAdapter.removeOne(action.record,state.goods) }  

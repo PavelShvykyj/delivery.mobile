@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { map, first, filter, concatMap } from 'rxjs/operators';
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
@@ -14,14 +15,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class OrderToolbarComponent  {
   constructor(private snackBar: MatSnackBar,
+    private router : Router,
     private store: Store<AppState>
   ) { }
 
+  GotoMenu() {
+    this.router.navigateByUrl("Menu");
+  }  
+
   OrderValid(EditingOrder) {
-    if (EditingOrder.addres.length > 1 && EditingOrder.phone.length == 10 && EditingOrder.goods.length > 0 && EditingOrder.filial.length > 0) {
+    if (EditingOrder.addres.length > 1 && EditingOrder.phone.length == 10 && EditingOrder.goods.length > 0 ) {
       return true
     } else {
-      this.snackBar.open("НЕКОРРЕКТНЫЙ ЗАКАЗ", "OK", { duration: 2000, panelClass: ['snack-err'] });
+      this.snackBar.open("Заполните контакты ...", "OK", { duration: 2000, panelClass: ['snack-err'] });
       return false;
     }
   }

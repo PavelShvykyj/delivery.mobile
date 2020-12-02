@@ -14,7 +14,7 @@
           <h4 *ngIf="!item.isFolder" class="mr-2 mb-1" (click)='OnElelementClick(item)'> {{item.mName}} </h4> 
         </div>
         <div class="card-body c-body py-2 d-flex justify-content-center align-items-center">
-          <p *ngIf="!item.isFolder" class="mb-1"> тут может быть состав или произвольное описание. </p>
+          <p *ngIf="!item.isFolder" class="mb-1"> {{item.mDescription == "" ? "нет описания" : item.mDescription}} </p>
           <h2 *ngIf="item.isFolder" class="mb-1" (click)='OnElelementClick(item)'> {{item.mName}} </h2>
         </div>
         <div class="card-footer c-footer py-1 d-flex justify-content-start align-items-end">

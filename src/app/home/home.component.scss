@@ -9,11 +9,21 @@
 mat-card {
     height: calc(100vh - 64px) !important;
     max-height: calc(100vh - 64px) !important;
+    @media screen and (max-width: 575.98px) {
+        height: calc(100% - 56px) !important;
+        max-height: calc(100% - 56px) !important;
+     
+    } 
 }
 
 
 
 .card-image {
     object-fit: cover !important; 
-    max-height: 50vh;
+    max-height: 45vh;
+    
+}
+
+.rotate {
+    transform: rotate(-45deg) !important;
 }

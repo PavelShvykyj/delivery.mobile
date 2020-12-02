@@ -12,14 +12,15 @@ import { OrderGoodsListComponent } from './order-goods-list/order-goods-list.com
 import { OrderToolbarComponent } from './order-toolbar/order-toolbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
+import { OrderMiniComponent } from './order-mini/order-mini.component';
 
 
 
 
 
 @NgModule({
-  declarations: [OrderEditComponent, OrderHeaderComponent, OrderGoodsListComponent,  OrderToolbarComponent],
-  exports:[OrderEditComponent],
+  declarations: [OrderEditComponent, OrderHeaderComponent, OrderGoodsListComponent,  OrderToolbarComponent, OrderMiniComponent],
+  exports:[OrderEditComponent, OrderMiniComponent],
   imports:[
     MaterialsModule,
     CommonModule,

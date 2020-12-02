@@ -16,6 +16,12 @@ export const selectAllOrderGoods = createSelector(
     fromEditOrder.selectAll // встроеный в адаптер селектор мы его експортировали в файле reducers/index 
 )
 
+export const SelectOrderquantity = createSelector(
+    selectAllOrderGoods,
+    goods => {let quantity = 0; goods.forEach(el=> {quantity = quantity + el.quantity}); console.log('lenth',quantity); return quantity}
+)
+
+
 export const selectOrderHeader = createSelector(
     selectEditOrderState,
     state => {

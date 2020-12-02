@@ -8,29 +8,39 @@
     </div> -->
 
 
-    <mat-card  *appShellNoRender>
-      <mat-card-header>
-        
-        <mat-card-title>Welcome</mat-card-title>
-        <mat-card-subtitle>Заказать еду на дом здесь можеш ты.</mat-card-subtitle>
-      </mat-card-header>
-      
-      <mat-card-content>
-        <img mat-card-image class="card-image" [src]="defoultpicture" >
-        <p>
-          вул. Собранецька 89, ТЦ «Дастор», 2-й поверх
-        </p>    
-        <p>
-        (095) 643-46-00
-        </p>
-        <p>
-          Працює : нд-пт з 9:00 – 21:00 | Сб 12:00-21:00
-        </p>  
-        
-      </mat-card-content>
-      <span class="m-avto"></span>
-      <mat-card-actions>
-        <button class="ml-3" mat-raised-button color='accent' (click)="GoTomenu()">Наше меню</button>
-        <button class="ml-3" mat-raised-button color='warn'  shareButton="telegram">SHARE</button>
-      </mat-card-actions>
-    </mat-card>
+<mat-card *appShellNoRender>
+  <mat-card-header>
+
+    <mat-card-title>Welcome</mat-card-title>
+    <mat-card-subtitle>Заказать еду на дом здесь можеш ты.</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <img mat-card-image class="card-image" [src]="defoultpicture">
+    <p>
+      вул. Собранецька 89, ТЦ «Дастор», 2-й поверх
+    </p>
+    <p>
+      (095) 643-46-00
+    </p>
+    <p>
+      Працює : нд-пт з 9:00 – 21:00 | Сб 12:00-21:00
+    </p>
+
+  </mat-card-content>
+  <span class="m-avto"></span>
+  <mat-card-actions>
+    <button class="ml-3" mat-raised-button color='accent' (click)="GoTomenu()">Наше меню</button>
+    
+
+    <button mat-raised-button shareButton="telegram" #fbBtn="shareButton"
+        [style.backgroundColor]="fbBtn?.color">
+        <mat-icon class="text-light rotate">send</mat-icon>
+    </button>
+    <button mat-raised-button shareButton="facebook" #fbBtn="shareButton"
+        [style.backgroundColor]="fbBtn?.color">
+        <mat-icon class="text-light">facebook</mat-icon>
+    </button>
+  
+  </mat-card-actions>
+</mat-card>

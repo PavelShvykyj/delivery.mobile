@@ -1,75 +1,80 @@
 <div class="card text-white bg-dark">
   <div class="card-header  d-flex flex-row align-items-center pb-2">
     <img *ngIf="data.item.picture" class="mat-card-avatar" [src]='data.item.picture' alt="Card image cap">
-    
-    
+
+
     <p class="mb-0 ml-2 text-center text-justify ml-3 text-warning"> {{ data.item.mName }} </p>
-    
+
   </div>
   <div class="card-body pt-2  px-2 ">
 
     <ng-container *ngIf="priceData$ | async as priceData">
       <form [formGroup]="form">
-    
-      <ul class="list-group list-group-flush mat-accent">
-      
-      <li class="list-group-item mat-accent px-2">
-        <!-- <p class="mb-0 ml-2 text-center text-justify">Размер:</p> -->
-        <ng-container *ngIf="sizeData$ | async as sizeData">
-        <div class="input-group mb-1">
-            <div class="input-group-prepend d-flex flex-fill">
-                <span class="input-group-text flex-fill bg-dark text-warning border-0">Размер:</span>
-                <div class="btn-group d-flex flex-fill" role="group" aria-label="">
-                    <button *ngFor="let size of sizeData" class="flex-fill mat-any-size" mat-raised-button [color]="size==_size ? 'accent' : ''"  (click)="OnSizeSelect(size)">{{sizeNames[size]}}</button>
-                </div>
-            </div>
-        </div>  
-      </ng-container>  
-      </li>
-    
-      <li class="list-group-item mat-accent px-2">
-        <ng-container *ngIf="typesData$ | async as typesData">
-        <div class="input-group mb-1 ">
-            <div class="input-group-prepend d-flex flex-fill">
-                <span class="input-group-text flex-fill bg-dark text-warning border-0">Тип:</span>
-                <div class="btn-group d-flex flex-fill" role="group" aria-label="">
-                    <button *ngFor="let type of typesData" class="mat-any-size flex-fill" mat-raised-button [color]="type==_type ? 'accent' : ''" (click)="OnTypeSelect(type)">{{typeNames[type] }}</button>
-                </div>
-            </div>
-        </div> 
-        </ng-container>       
-      </li>
 
-      <li class="list-group-item mat-accent px-2">
-        <!-- <p class="mb-0 text-center text-justify">Количество:</p> -->
-        <div class="input-group">
-            <div class="input-group-prepend ">
+        <ul class="list-group list-group-flush mat-accent">
+          <ng-container *ngIf="sizeData$ | async as sizeData">
+            <li *ngIf="sizeData.length>1" class="list-group-item mat-accent px-2">
+              <!-- <p class="mb-0 ml-2 text-center text-justify">Размер:</p> -->
+
+              <div class="input-group mb-1">
+                <div class="input-group-prepend d-flex flex-fill">
+                  <span class="input-group-text flex-fill bg-dark text-warning border-0">Размер:</span>
+                  <div class="btn-group d-flex flex-fill" role="group" aria-label="">
+                    <button *ngFor="let size of sizeData" class="flex-fill mat-any-size" mat-raised-button
+                      [color]="size==_size ? 'accent' : ''" (click)="OnSizeSelect(size)">{{sizeNames[size]}}</button>
+                  </div>
+                </div>
+              </div>
+
+            </li>
+          </ng-container>
+          <ng-container *ngIf="typesData$ | async as typesData">
+            <li *ngIf="typesData.length>1" class="list-group-item mat-accent px-2">
+              <!-- <ng-container *ngIf="typesData$ | async as typesData"> -->
+              <div class="input-group mb-1 ">
+                <div class="input-group-prepend d-flex flex-fill">
+                  <span class="input-group-text flex-fill bg-dark text-warning border-0">Тип:</span>
+                  <div class="btn-group d-flex flex-fill" role="group" aria-label="">
+                    <button *ngFor="let type of typesData" class="mat-any-size flex-fill" mat-raised-button
+                      [color]="type==_type ? 'accent' : ''" (click)="OnTypeSelect(type)">{{typeNames[type] }}</button>
+                  </div>
+                </div>
+              </div>
+              <!-- </ng-container>        -->
+            </li>
+          </ng-container>
+
+          <li class="list-group-item mat-accent px-2">
+            <!-- <p class="mb-0 text-center text-justify">Количество:</p> -->
+            <div class="input-group">
+              <div class="input-group-prepend ">
                 <span class="input-group-text bg-dark text-warning border-0">Кол.-во:</span>
                 <button class="mat-any-size" mat-raised-button color='accent' (click)="Onuantity(-1)">-</button>
-            </div>
-      
-            <input formControlName="_quantity"  type="number" class="form-control bg-dark text-warning" placeholder="Количество" aria-label="Example text with button addon" aria-describedby="button-addon1">
+              </div>
 
-            <div class="input-group-append ">
+              <input formControlName="_quantity" type="number" class="form-control bg-dark text-warning"
+                placeholder="Количество" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+              <div class="input-group-append ">
                 <button class="mat-any-size" mat-raised-button color='accent' (click)="Onuantity(1)">+</button>
-            </div>
+              </div>
 
-        </div>      
-      </li>
-      <li class="list-group-item mat-accent px-2 d-flex">
-        <div class="input-group">
-            <div *ngIf="_price!=0" class="input-group-prepend d-flex flex-fill">
-                
+            </div>
+          </li>
+          <li class="list-group-item mat-accent px-2 d-flex">
+            <div class="input-group">
+              <div *ngIf="_price!=0" class="input-group-prepend d-flex flex-fill">
+
                 <span class="input-group-text flex-fill bg-dark text-warning border-0">Цена: {{_price}}</span>
                 <span class="input-group-text flex-fill bg-dark text-warning border-0">Сумма: {{_summ}}</span>
-            </div>  
-            <div *ngIf="_price==0" class="input-group-prepend d-flex flex-fill">
-              <span class="input-group-text flex-fill bg-danger text-light border-0">Временно недоступна </span>
-            </div>  
-        </div> 
-      </li>
-    </ul>
-    </form>
+              </div>
+              <div *ngIf="_price==0" class="input-group-prepend d-flex flex-fill">
+                <span class="input-group-text flex-fill bg-danger text-light border-0">Временно недоступна </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </form>
     </ng-container>
 
     <ng-container *ngIf="!(priceData$ | async) as priceData">

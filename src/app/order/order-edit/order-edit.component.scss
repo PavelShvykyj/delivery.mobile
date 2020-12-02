@@ -1,21 +1,6 @@
 @import '~@angular/material/theming';
 
 
-
-// .ordertoolbar {
-//     background-color: map-get($mat-grey, 600);
-// } 
-
-
-// .ordergoods {
-//     background-color: map-get($mat-grey, 600);;
-// } 
-
-// .orderheader {
-//     background-color: map-get($mat-grey, 600);
-
-// }
-
 .gridelement{
     display: flex;
     flex-direction: column;
@@ -32,9 +17,12 @@
 }
 
 .grid-container {
-    height: calc(100vh - 96px);
+    overflow: hidden !important;
+    height: calc(100vh - 64px);
+    @media screen and (max-width: 575.98px) {
+        height: calc(100% - 56px);
+    }
     width: 100%;
-    //background-color:map-get($mat-grey, 600);
 }
 
 

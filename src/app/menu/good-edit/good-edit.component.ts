@@ -1,3 +1,4 @@
+import { IWEBGood } from './../../models/web.good';
 import { IMobileGood, IMobilePriceData, IMobilePriceElement } from './../../models/mobile.good';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
@@ -7,6 +8,7 @@ import { Observable } from 'rxjs';
 import { selectGoodPrices } from '../menu.selectors';
 import { debounceTime, map, tap } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IOrderGoodsRecordWithEntity } from 'src/app/models/order';
 
 
 function simpleUniq<t>(s: t[]) : t[]  {
@@ -85,6 +87,7 @@ export class GoodEditComponent implements OnInit {
       })
     );
     this.typesData$ = this.priceData$.pipe(
+      debounceTime(10),
       map(el => {
         const s = el.map(arrel => arrel.mData.mType)
         return simpleUniq(s).sort();
@@ -126,10 +129,40 @@ export class GoodEditComponent implements OnInit {
   } 
 
   Cancel() {
+    
     this.dialogRef.close({ answer: 'cancel' });
   }
+  
+  CompileGood() : IWEBGood {
+    let good : IWEBGood = {
+    id : this._priceElement.id,
+    externalid : "",
+    filials : this._priceElement.dirtyid,
+    isDeleted : false,
+    isFolder : false,
+    isSelected : false,
+    parentid : this.data.item.parentid,
+    picture  : this.data.item.picture,
+    price    : this._priceElement.price,
+    name : ""};
+
+    
+    const sizeName = this._size == 0 ? "" : this.sizeNames[this._size];
+    const typeName = this._type == 0 ? "" : this.typeNames[this._type];
+    good.name = good.name.concat(this.data.item.mName," ",sizeName," ",typeName);
+    return good;
+
+  }
+  
   Order() {
-    this.dialogRef.close({ answer: 'order' });
+    let record : IOrderGoodsRecordWithEntity = {
+      id : this._priceElement.id,
+      quantity : this._quantity,
+      comment : "",
+      good : this.CompileGood()
+  
+    }
+    this.dialogRef.close({ answer: 'order', record });
   }
 
 

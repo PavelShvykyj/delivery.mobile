@@ -51,3 +51,27 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         background-color: map-get($mat-grey, 300);
     }
 }
+
+.primary {
+  background-color: map-get($mat-light-blue, 700);
+  color: map-get($mat-light-blue, 100);
+}
+
+.snack-info  {
+  @extend .mat-primary;
+  @extend .mat-toolbar;
+  background-color: map-get($mat-orange, 100);
+  // для разметки  action раскоментировать
+  // .mat-simple-snackbar-action{
+  //   color: white;
+  //}
+}
+
+.snack-err {
+  @extend .mat-toolbar;
+  background-color: map-get($mat-red, 500);
+  color: white;
+  .mat-simple-snackbar-action{
+    color: white;
+  }
+} 

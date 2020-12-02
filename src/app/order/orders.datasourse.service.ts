@@ -26,7 +26,7 @@ export class OrdersDatasourseService {
   CreateOrder(neworder: IOrderWithDirty) {
     
     
-    return from(this.db.ref('orders').push({...neworder, creation: this.timestamp}))
+    return from(this.db.ref('orders').push({...neworder,externalid:"", creation: this.timestamp}))
     .pipe(
       
       catchError(err => {

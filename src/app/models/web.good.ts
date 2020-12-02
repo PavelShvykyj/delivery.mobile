@@ -4,6 +4,7 @@ import { IONECGood } from './onec.good';
 export interface IWEBGood extends IBaseGood {
     price?:number,
     picture?:string,
+    mDescription?:string,
     filials: string[]
 }
 

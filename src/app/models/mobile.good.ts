@@ -5,6 +5,7 @@ export interface IMobileGood extends IMobileBitmapData  {
     parentid:string,
     isFolder:boolean,
     mName: string,
+    mDescription?:string,
     picture?:string
 }
 
@@ -33,6 +34,7 @@ export interface IMobileData extends IMobileBitmapData {
     price:number
     bitmap?:number
     mName?:string,
+    mDescription?:string,
     picture?:string
 }
 

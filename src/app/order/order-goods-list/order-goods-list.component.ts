@@ -12,6 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'order-goods-list',
@@ -20,7 +21,8 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 })
 export class OrderGoodsListComponent implements OnInit {
 
-  displayedColumns : string[] = ['good' ,'quantity','price' ,'comment','buttonsgroup'];
+  displayedColumns : string[] = ['increse','quantity','decrese','del','price'];
+  displayedColumnsGood : string[] = ['good'];
   dataSource : MatTableDataSource<IOrderGoodsRecordWithEntity>  = new MatTableDataSource([]);
   ordersusbs:Subscription;
   total:number = 0;
@@ -28,7 +30,8 @@ export class OrderGoodsListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   
-  constructor(private store: Store<AppState>,
+  constructor(private snackBar: MatSnackBar,
+              private store: Store<AppState>,
               public dialog: MatDialog ) { }
 
   ngOnInit() {
@@ -37,6 +40,7 @@ export class OrderGoodsListComponent implements OnInit {
       
       this.dataSource.data=orderrecords;
       this.total = this.GetOrderTotal();
+      
 
     });
 
@@ -63,13 +67,13 @@ export class OrderGoodsListComponent implements OnInit {
   }
 
   IncrQuantity(record:IOrderGoodsRecordWithEntity) {
-    record.quantity = 1;
-    this.store.dispatch(UpsertOrderRecord({record}));
+    
+    this.store.dispatch(UpsertOrderRecord({record: {...record,quantity:1 }}));
   }
 
   DecrQuantity(record) {
-    record.quantity = -1;
-    this.store.dispatch(UpsertOrderRecord({record}));
+    
+    this.store.dispatch(UpsertOrderRecord({record: {...record,quantity:-1 }}));
 
   }
 
@@ -77,18 +81,18 @@ export class OrderGoodsListComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus=true;
-    dialogConfig.minHeight="25wh"
-    dialogConfig.minWidth="25wv"
-    
+    dialogConfig.disableClose = true;
+    dialogConfig.maxHeight = "90vh";
+    dialogConfig.maxWidth = "500px"
+    dialogConfig.width = "90vw";
+    dialogConfig.panelClass = 'custom-modalbox';
     dialogConfig.data = {title: `Комментарий для : ${record.good.name}` , answer:record.comment}
 
     const DialogRef : MatDialogRef<DialogstringinputComponent>  = this.dialog.open(
       DialogstringinputComponent,
       dialogConfig);
       DialogRef.afterClosed().pipe(first()).subscribe(res =>{
-      record.comment = res.answer;
-      record.quantity = 0; 
-      this.store.dispatch(UpsertOrderRecord({record}));
+      this.store.dispatch(UpsertOrderRecord({record: {...record,quantity:0,comment: res.answer}}));
     });
 
 
@@ -97,7 +101,10 @@ export class OrderGoodsListComponent implements OnInit {
  
 
   Del(record) {
-    this.store.dispatch(DeleteOrderRecord({recordid:record.id}));
+    this.snackBar.open("Для удаления нажмите -->", "OK", { duration: 3000, panelClass: ['snack-info'] })
+    .onAction()
+    .pipe(first())
+    .subscribe(()=>this.store.dispatch(DeleteOrderRecord({recordid:record.id})));
   }
 
 }

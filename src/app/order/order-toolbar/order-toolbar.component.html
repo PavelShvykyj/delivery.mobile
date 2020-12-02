@@ -1,7 +1,9 @@
 <mat-toolbar class="bg-dark">
-    <button class="no-outline" mat-raised-button color='accent' (click)="Pay()"> Оплатить </button> 
+    <button class="no-outline mooveup" mat-raised-button color='accent' (click)="Pay()"> Оплатить </button> 
     <span class="m-avto"> </span>
-    <button class="no-outline" mat-raised-button color='accent' (click)="CreateOrder()"> Заказать</button> 
+    <button mat-raised-button color='accent' routerLink="Order" class="mooveup" (click)="GotoMenu()"> <mat-icon>restaurant_menu</mat-icon> </button> 
+    <span class="m-avto"> </span>
+    <button class="no-outline mooveup" mat-raised-button color='accent' (click)="CreateOrder()"> Заказать</button> 
 
 </mat-toolbar>
 

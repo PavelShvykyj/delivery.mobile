@@ -10,7 +10,7 @@ import { menuMainFolderSelected, loadAllMenu, changeFilerName } from './menu/men
 import { MatDrawer } from '@angular/material/sidenav';
 import { isPlatformServer } from '@angular/common';
 import { Router } from '@angular/router';
-import { IfStmt } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-root',
@@ -75,6 +75,15 @@ constructor(private breakpointObserver: BreakpointObserver,
     this.NameFilterValue = "";
   }
 
+  GoToOrder() {
+    if (this.isHandset) {
+      this.nav.toggle();  
+    }
+    if (!this.router.isActive("Order",true)) {
+      this.router.navigateByUrl("Order");
+    } 
+  }
+
   OnMenuItemClick(id) {
     this.store.dispatch(menuMainFolderSelected({id:id,parentid:""}));
     
@@ -83,7 +92,6 @@ constructor(private breakpointObserver: BreakpointObserver,
     }
     
     if (!this.router.isActive("Menu",true)) {
-      console.log('isNOActive - navigate');
       this.router.navigateByUrl("Menu");
     } 
   }

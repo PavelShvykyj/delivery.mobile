@@ -29,10 +29,22 @@ mat-form-field {
     max-height: 30px !important;
     height: 30px !important; 
     min-height: 30px !important;
+    word-wrap: break-word !important;
     border-right: 1px solid;
     border-right-color:  rgba(0, 0, 0, 0.12);
     text-align: center !important;  
 }
+
+.table-cell-button {
+    // width: 10vh !important;
+    // min-width: 10vh !important;
+}
+
+.table-cell-good {
+    height: 40px !important; 
+    min-height: 40px !important;
+}
+
 
 // .mat-column-buttonsgroup {
 //     flex: 0 0 24% !important;

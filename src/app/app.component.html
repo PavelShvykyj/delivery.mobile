@@ -13,17 +13,9 @@
       
       <mat-nav-list *appShellNoRender>
         <a mat-list-item routerLink="home" class="text-warning"> Описание </a> 
-        <a mat-list-item routerLink="Order" class="text-warning"> Корзина </a> 
-        <ng-container *ngIf="meinelements$ | async as mainmenu">
+        <a mat-list-item (click)="GoToOrder()" class="text-warning"> Корзина </a> 
+        <ng-container *ngIf="meinelements$ | async as mainmenu; else spinner">
           <a class="text-warning" mat-list-item *ngFor="let item of mainmenu" (click)="OnMenuItemClick(item.id)"> {{ item.mName}} </a> 
-        </ng-container>
-
-        <ng-container *ngIf="!(meinelements$ | async) as mainmenu">
-          <div class="d-flex  justify-content-center align-items-center align-self-center" *appShellRender> 
-            <span class="m-avto"></span>
-            <mat-spinner ></mat-spinner>
-            <span class="m-avto"></span>
-          </div>
         </ng-container>
 
       </mat-nav-list>
@@ -44,6 +36,7 @@
         
         <span *ngIf="!searchMode">Чили доставка</span>
         <span class="m-avto"></span>
+        <order-mini  class="pr-2"></order-mini>
         <button *ngIf="!searchMode" mat-icon-button (click)="SearchMode()"><mat-icon>search</mat-icon></button>
         
         <div *ngIf="searchMode" class="input-group input-group-sm ">
@@ -57,7 +50,14 @@
       <!-- Add Content 
        Here -->
       
-      
+      <ng-template #spinner>
+        <div class="d-flex flex-column justify-content-center align-items-center align-self-center" *appShellRender> 
+          <span class="m-avto"></span>
+          <mat-spinner ></mat-spinner>
+          <span class="m-avto"></span>
+        </div>
+      </ng-template>
+
 
       <!-- <ng-container class="d-flex flex-column justify-content-center align-items-center"> 
         <router-outlet></router-outlet>

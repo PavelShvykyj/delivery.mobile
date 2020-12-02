@@ -32,6 +32,7 @@ import { BaseelementsModule } from './baseelements/baseelements.module';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +58,7 @@ import { BaseelementsModule } from './baseelements/baseelements.module';
     }),
     NgxMaskModule.forRoot(),
     MaterialsModule
+    
     
   ],
   providers: [],

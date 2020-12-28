@@ -10,6 +10,7 @@ import { menuMainFolderSelected, loadAllMenu, changeFilerName } from './menu/men
 import { MatDrawer } from '@angular/material/sidenav';
 import { isPlatformServer } from '@angular/common';
 import { Router } from '@angular/router';
+import { SelectOrderquantity } from './order/editorder.selectors';
 
 
 @Component({
@@ -36,7 +37,18 @@ export class AppComponent  {
     shareReplay()
   );
 
+  orderLenth$ : Observable<number>;
+
   meinelements$: Observable<IMobileGood[]> = of([]);
+  topicons = {
+    1: 'pizza-slice',
+    2: 'fish',
+    3: 'bread-slice',
+    4: 'glass-martini',
+
+  }
+
+
 
 constructor(private breakpointObserver: BreakpointObserver,
   private router : Router,
@@ -45,6 +57,7 @@ constructor(private breakpointObserver: BreakpointObserver,
       this.store.dispatch(loadAllMenu());
       this.meinelements$ = this.store.pipe(select(selectTopFolders));
       }
+      this.orderLenth$ = this.store.pipe(select(SelectOrderquantity))
   }
 
   OnFilterChange() {
@@ -84,10 +97,17 @@ constructor(private breakpointObserver: BreakpointObserver,
     } 
   }
 
-  OnMenuItemClick(id) {
+
+  SetTopFolder(top:IMobileGood[],category:number) {
+    const folder =  top.find(el=> el.mCategory == category);
+    const newid : string  = folder != undefined ? folder.id : "";
+    this.OnMenuItemClick(newid,false);
+  }
+
+  OnMenuItemClick(id,togglenav: boolean=true) {
     this.store.dispatch(menuMainFolderSelected({id:id,parentid:""}));
     
-    if (this.isHandset) {
+    if (this.isHandset && togglenav) {
       this.nav.toggle();  
     }
     

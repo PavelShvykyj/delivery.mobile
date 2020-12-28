@@ -31,6 +31,11 @@ export class MenuListComponent implements OnInit {
   infinite : Observable<any[]>;
   currentFolder : string = "";
   parentFolder : string = "";
+
+  currentFolder$ : Observable<IMobileGood>; 
+  parentFolder$ : Observable<IMobileGood>; 
+
+
   defoultpicture : string = "https://firebasestorage.googleapis.com/v0/b/chilidelivery-42f84.appspot.com/o/webgoodpicures%2F5.jpg?alt=media&token=9c93dd85-301f-4a7c-ad72-24592aa5b8c5";  
   Filter : string = "";
 
@@ -66,10 +71,15 @@ export class MenuListComponent implements OnInit {
           this.ScrollToStart();
           this.currentFolder = f.CurrentFolder;
           this.parentFolder = f.ParentFolder;
+          this.currentFolder$ = this.store.pipe(select(selectGoodByID,{id:f.CurrentFolder}));
+          this.parentFolder$ = this.store.pipe(select(selectGoodByID,{id:f.ParentFolder}));
           this.Filter = f.Filter;
           this.Init();
         }
-    }) 
+    });
+    
+    
+
   }}
 
   OnElelementClick(item: IMobileGood) {
@@ -140,25 +150,37 @@ export class MenuListComponent implements OnInit {
     return i;
   }
 
-  FolderUp() {
-    
-    if (this.parentFolder == "" ) {
-      if (this.currentFolder != "") {
-        this.store.dispatch(menuFolderSelected({id:"",parentid:""}));
-      }
+  FolderUp(id:string='') {
+    if (id == this.currentFolder) {
       return;
     }
+
+    if (id == '') {
+      this.store.dispatch(menuFolderSelected({id:"",parentid:""}));
+      return
+    }
+
+    // if (this.parentFolder == "" ) {
+    //   if (this.currentFolder != "") {
+    //     this.store.dispatch(menuFolderSelected({id:"",parentid:""}));
+    //   }
+    //   return;
+    // }
+
+    
+
+
     
     this.store.pipe(
-      select(selectGoodByID,{id:this.parentFolder}),
+      select(selectGoodByID,{id}),
       take(1),
-      tap(el=> this.store.dispatch(menuFolderSelected({id:this.parentFolder,parentid:el.parentid})))
+      tap(el=> this.store.dispatch(menuFolderSelected({id:id,parentid:el.parentid})))
     ).subscribe();
   }
 
   ScrollToStart() {
     if (this.viewport != undefined) {
-      this.viewport.scrollToIndex(0); 
+      this.viewport.scrollToIndex(0,'smooth'); 
     }
     
   }

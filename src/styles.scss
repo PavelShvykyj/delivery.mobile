@@ -67,6 +67,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   //}
 }
 
+.mooveup {
+  transform: translateY(-26px);
+  z-index: 100;
+}
+
 .snack-err {
   @extend .mat-toolbar;
   background-color: map-get($mat-red, 500);

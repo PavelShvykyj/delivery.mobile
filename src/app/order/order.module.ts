@@ -13,6 +13,7 @@ import { OrderToolbarComponent } from './order-toolbar/order-toolbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { OrderMiniComponent } from './order-mini/order-mini.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -22,6 +23,7 @@ import { OrderMiniComponent } from './order-mini/order-mini.component';
   declarations: [OrderEditComponent, OrderHeaderComponent, OrderGoodsListComponent,  OrderToolbarComponent, OrderMiniComponent],
   exports:[OrderEditComponent, OrderMiniComponent],
   imports:[
+    FontAwesomeModule,
     MaterialsModule,
     CommonModule,
     ReactiveFormsModule,

@@ -1,85 +1,117 @@
-<mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport
-        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-        [mode]="(isHandset$ | async) ? 'over' : 'side'"
-        [opened]="(isHandset$ | async) === false">
-      <mat-toolbar >Menu</mat-toolbar>
-      
-      <div class="d-flex  justify-content-center align-items-center align-self-center" *appShellRender> 
-        <span class="m-avto"></span>
-        <mat-spinner ></mat-spinner>
-        <span class="m-avto"></span>
-      </div>
-      
-      <mat-nav-list *appShellNoRender>
-        <a mat-list-item routerLink="home" class="text-warning"> Описание </a> 
-        <a mat-list-item (click)="GoToOrder()" class="text-warning"> Корзина </a> 
-        <ng-container *ngIf="meinelements$ | async as mainmenu; else spinner">
-          <a class="text-warning" mat-list-item *ngFor="let item of mainmenu" (click)="OnMenuItemClick(item.id)"> {{ item.mName}} </a> 
+<mat-sidenav-container fullscreen class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+
+    <div class="d-flex  justify-content-center align-items-center align-self-center" *appShellRender>
+      <span class="m-avto"></span>
+      <mat-spinner></mat-spinner>
+      <span class="m-avto"></span>
+    </div>
+
+    <ng-template #card>
+      <button mat-icon-button class="no-outline">
+        <fa-icon class="px-2" size="lg" [icon]="['fas', 'shopping-cart']"></fa-icon>
+      </button>
+    </ng-template>
+
+    <mat-nav-list *appShellNoRender>
+      <a mat-list-item routerLink="home" class="text-warning">
+        <fa-icon class="px-2" size="lg" [icon]="['fas', 'home']"></fa-icon>
+        Описание
+
+      </a>
+
+
+
+      <a mat-list-item (click)="GoToOrder()" class="text-warning">
+        <ng-container *ngIf="orderLenth$ | async as orderLenth; else card">
+          <button class="no-outline" mat-icon-button [matBadge]="orderLenth" matBadgeColor="warn"
+            matBadgePosition="above after">
+            <fa-icon class="px-2" size="lg" [icon]="['fas', 'shopping-cart']"></fa-icon>
+          </button>
         </ng-container>
 
-      </mat-nav-list>
-    
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <mat-toolbar color='primary'>
-        <button
-          class="no-outline"
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async">
-          <mat-icon  aria-label="Side nav toggle icon">menu</mat-icon>
+        Корзина
+
+      </a>
+      <ng-container *ngIf="meinelements$ | async as mainmenu; else spinner">
+        <a class="text-warning" mat-list-item *ngFor="let item of mainmenu" (click)="OnMenuItemClick(item.id)">
+          <button class="no-outline" mat-icon-button>
+            <fa-icon class="px-2" size="lg" [icon]="['fas', topicons[item.mCategory]]"></fa-icon>
+          </button>
+
+          {{ item.mName}} </a>
+      </ng-container>
+
+    </mat-nav-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color='primary'>
+      <button class="no-outline" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <fa-icon size="lg" [icon]="['fas', 'bars']"></fa-icon>
+        <!-- <mat-icon  aria-label="Side nav toggle icon">menu</mat-icon> -->
+      </button>
+      <img src="favicon.ico" class="header-image mx-1">
+
+      <span *ngIf="!searchMode">Чили доставка</span>
+      <span class="m-avto"></span>
+      <ng-container *appShellNoRender>
+        <order-mini></order-mini>
+        <button *ngIf="!searchMode" mat-icon-button (click)="SearchMode()">
+          <!-- <mat-icon>search</mat-icon> -->
+          <fa-icon [icon]="['fas', 'search']"></fa-icon>
         </button>
-        <img src="favicon.ico" class="header-image mx-1"> 
-        
-        <span *ngIf="!searchMode">Чили доставка</span>
-        <span class="m-avto"></span>
-        <order-mini  class="pr-2"></order-mini>
-        <button *ngIf="!searchMode" mat-icon-button (click)="SearchMode()"><mat-icon>search</mat-icon></button>
-        
-        <div *ngIf="searchMode" class="input-group input-group-sm ">
-          <input #search class="form-control form-control-sm no-outline" type="text" placeholder="по имени" (input)="OnFilterChange()" [(ngModel)]="NameFilterValue">
+
+        <div *ngIf="searchMode" class="input-group input-group-sm ml-2">
+          <input #search class="form-control form-control-sm no-outline" type="text" placeholder="по имени"
+            (input)="OnFilterChange()" [(ngModel)]="NameFilterValue">
           <div class="input-group-append">
-            <button   class="btn text-light py-0" (click)="SearchMode(); ClearFilter()"><mat-icon class="p-0 m-0  mat-any-size">clear</mat-icon> </button>    
+            <button class="btn text-light py-0" (click)="SearchMode(); ClearFilter()">
+              <!-- <mat-icon class="p-0 m-0  mat-any-size">clear</mat-icon>-->
+              <fa-icon [icon]="['fas', 'times']"></fa-icon>
+            </button>
           </div>
         </div>
-        
+      </ng-container>
+    </mat-toolbar>
+    <ng-container *ngIf="meinelements$ | async as mainmenu; else spinner">
+      <mat-toolbar color='accent' class="toolbar-mini d-flex justify-content-around">
+        <fa-icon class="px-2" [icon]="['fas', 'pizza-slice']" (click)="SetTopFolder(mainmenu,1)"></fa-icon>
+        <fa-icon class="px-2" [icon]="['fas', 'glass-martini']" (click)="SetTopFolder(mainmenu,4)"></fa-icon>
+        <fa-icon class="px-2" [icon]="['fas', 'bread-slice']" (click)="SetTopFolder(mainmenu,3)"></fa-icon>
+        <fa-icon class="px-2" [icon]="['fas', 'fish']" (click)="SetTopFolder(mainmenu,2)"></fa-icon>
       </mat-toolbar>
-      <!-- Add Content 
+    </ng-container>
+    <!-- Add Content 
        Here -->
-      
-      <ng-template #spinner>
-        <div class="d-flex flex-column justify-content-center align-items-center align-self-center" *appShellRender> 
-          <span class="m-avto"></span>
-          <mat-spinner ></mat-spinner>
-          <span class="m-avto"></span>
-        </div>
-      </ng-template>
 
-
-      <!-- <ng-container class="d-flex flex-column justify-content-center align-items-center"> 
-        <router-outlet></router-outlet>
-      </ng-container> -->
-      
-      
-      <router-outlet></router-outlet>
-      
-
-      <div class="d-flex flex-column justify-content-center align-items-center align-self-center" *appShellRender> 
+    <ng-template #spinner>
+      <div class="d-flex flex-column justify-content-center align-items-center align-self-center" *appShellRender>
         <span class="m-avto"></span>
-        <mat-spinner ></mat-spinner>
+        <mat-spinner></mat-spinner>
         <span class="m-avto"></span>
       </div>
-      </mat-sidenav-content>
+    </ng-template>
 
-     
+
+    <!-- <ng-container class="d-flex flex-column justify-content-center align-items-center"> 
+        <router-outlet></router-outlet>
+      </ng-container> -->
+
+
+    <router-outlet></router-outlet>
+
+
+    <div class="d-flex flex-column justify-content-center align-items-center align-self-center" *appShellRender>
+      <span class="m-avto"></span>
+      <mat-spinner></mat-spinner>
+      <span class="m-avto"></span>
+    </div>
+  </mat-sidenav-content>
+
+
 
 </mat-sidenav-container>
-  
-
-
-
-
-

@@ -1,8 +1,8 @@
 @import '~@angular/material/theming';
 
-.sidenav-container {
-    height: 100%;
-  }
+// .sidenav-container {
+//   height: 100vh;
+// }
   
   .sidenav {
     width: 200px;
@@ -30,7 +30,10 @@
   }
 
   
-
+.toolbar-mini {
+  height: 30px !important;
+  max-height: 30px !important;
+}
   
 
   

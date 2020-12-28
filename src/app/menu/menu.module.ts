@@ -11,6 +11,7 @@ import { MenuListComponent } from './menu-list/menu-list.component';
 import { MaterialsModule } from '../materials/materials.module';
 import { GoodEditComponent } from './good-edit/good-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -18,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [MenuListComponent, GoodEditComponent],
   imports: [
     CommonModule,
+    FontAwesomeModule,
     ReactiveFormsModule,
     MaterialsModule,
     StoreModule.forFeature(fromMenu.menuFeatureKey, menureducer, { metaReducers: fromMenu.metaReducers }),

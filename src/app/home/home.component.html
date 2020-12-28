@@ -8,39 +8,46 @@
     </div> -->
 
 
-<mat-card *appShellNoRender>
-  <mat-card-header>
 
-    <mat-card-title>Welcome</mat-card-title>
-    <mat-card-subtitle>Заказать еду на дом здесь можеш ты.</mat-card-subtitle>
-  </mat-card-header>
-
-  <mat-card-content>
-    <img mat-card-image class="card-image" [src]="defoultpicture">
-    <p>
-      вул. Собранецька 89, ТЦ «Дастор», 2-й поверх
-    </p>
-    <p>
-      (095) 643-46-00
-    </p>
-    <p>
-      Працює : нд-пт з 9:00 – 21:00 | Сб 12:00-21:00
-    </p>
-
-  </mat-card-content>
-  <span class="m-avto"></span>
-  <mat-card-actions>
-    <button class="ml-3" mat-raised-button color='accent' (click)="GoTomenu()">Наше меню</button>
+<div class="grid-container d-flex flex-column bg-dark" *appShellNoRender>
+  <div class="bg-dark gridelement">
+    <mat-card class="bg-dark text-warning">
+      <mat-card-header>
+        <mat-card-title>Welcome</mat-card-title>
+        <mat-card-subtitle class="text-warning">Заказать еду на дом здесь можеш ты.</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <img mat-card-image class="card-image" [src]="defoultpicture">
+        <p>
+          вул. Собранецька 89, ТЦ «Дастор», 2-й поверх
+        </p>
+        <p>
+          (095) 643-46-00
+        </p>
+        <p>
+          Працює : нд-пт з 9:00 – 21:00 | Сб 12:00-21:00
+        </p>
+      </mat-card-content>
+    </mat-card>
     
-
-    <button mat-raised-button shareButton="telegram" #fbBtn="shareButton"
-        [style.backgroundColor]="fbBtn?.color">
-        <mat-icon class="text-light rotate">send</mat-icon>
-    </button>
-    <button mat-raised-button shareButton="facebook" #fbBtn="shareButton"
-        [style.backgroundColor]="fbBtn?.color">
-        <mat-icon class="text-light">facebook</mat-icon>
-    </button>
-  
-  </mat-card-actions>
-</mat-card>
+  </div>
+  <div class="m-avto gridelement"></div>
+  <div class="gridelement bg-dark d-flex flex-column justify-content-end">
+      <mat-toolbar  class="bg-dark  ">
+        <button class=" no-outline" mat-raised-button color='accent' (click)="GoTomenu()"><fa-icon class="mr-1" [icon]="['fas', 'utensils']"></fa-icon> Наше меню</button>
+        <span class="m-avto"></span>
+        <button color='warn' class="ml-2 no-outline text-light" mat-mini-fab shareButton="telegram" #fbBtn="shareButton"
+            >
+            <!-- <mat-icon class="text-light rotate">send</mat-icon> -->
+            <fa-icon size="lg"  [icon]="['fab', 'telegram']"></fa-icon>
+        </button>
+        <button color='warn' class="ml-2 no-outline text-light" mat-mini-fab shareButton="facebook" #fbBtn="shareButton"
+            >
+            <!-- <mat-icon class="text-light">facebook</mat-icon> -->
+            <fa-icon size="lg" [icon]="['fab', 'facebook']"></fa-icon>
+            
+        </button>
+       
+      </mat-toolbar>
+  </div>
+</div>

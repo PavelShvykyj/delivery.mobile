@@ -8,7 +8,7 @@
     </ng-container>
 
     <ng-container matColumnDef="quantity">
-        <mat-header-cell class="table-cell table-cell-button table-header-cell bg-dark text-light" *matHeaderCellDef mat-sort-header> Количество </mat-header-cell>
+        <mat-header-cell class="table-cell table-cell-button table-header-cell bg-dark text-light" *matHeaderCellDef mat-sort-header> Кол.-во </mat-header-cell>
         <mat-cell class="table-cell table-cell-button bg-dark text-warning" *matCellDef="let record">{{record.quantity}}</mat-cell>
         <mat-footer-cell *matFooterCellDef class="table-footer-cell table-cell-button bg-dark text-warning"  > Итого:  </mat-footer-cell>    
     </ng-container>
@@ -34,7 +34,8 @@
         <mat-header-cell class="table-cell table-cell-button table-header-cell bg-dark text-light" *matHeaderCellDef> +1</mat-header-cell>
         <mat-cell class="table-cell table-cell-button bg-dark text-warning" *matCellDef="let record">
             <button class="mat-any-size no-outline" color='warn' mat-icon-button (click)="IncrQuantity(record)">
-                <mat-icon>add</mat-icon>
+                <!-- <mat-icon>add</mat-icon> -->
+                <fa-icon size="lg" [icon]="['fas', 'plus']"></fa-icon>
             </button>
         </mat-cell>
         <mat-footer-cell class="table-cell-button" *matFooterCellDef></mat-footer-cell>
@@ -44,7 +45,8 @@
         <mat-header-cell class="table-cell table-cell-button table-header-cell bg-dark text-light" *matHeaderCellDef> -1</mat-header-cell>
         <mat-cell class="table-cell table-cell-button bg-dark text-warning" *matCellDef="let record">
             <button class="mat-any-size no-outline" color='warn' mat-icon-button (click)="DecrQuantity(record)">
-                <mat-icon>remove</mat-icon>
+                <!-- <mat-icon>remove</mat-icon> -->
+                <fa-icon size="lg" [icon]="['fas', 'minus']"></fa-icon>
             </button>
         </mat-cell>
         <mat-footer-cell class="table-cell-button" *matFooterCellDef></mat-footer-cell>
@@ -54,7 +56,8 @@
         <mat-header-cell class="table-cell table-cell-button table-header-cell bg-dark text-light" *matHeaderCellDef> Уд. </mat-header-cell>
         <mat-cell class="table-cell table-cell-button bg-dark text-warning" *matCellDef="let record">
             <button class="mat-any-size no-outline" color='warn' mat-icon-button (click)="Del(record)">
-                <mat-icon>delete</mat-icon>
+                <!-- <mat-icon>delete</mat-icon> -->
+                <fa-icon size="lg" [icon]="['fas', 'trash']"></fa-icon>
             </button>
         </mat-cell>
         <mat-footer-cell class="table-cell-button" *matFooterCellDef></mat-footer-cell>

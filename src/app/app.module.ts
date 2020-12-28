@@ -29,6 +29,9 @@ import { AppShellRenderDirective } from './directives/appshell-render.directive'
 import { AppShellNoRenderDirective } from './directives/appshell-no-render.directive';
 import { FormsModule } from '@angular/forms';
 import { BaseelementsModule } from './baseelements/baseelements.module';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCoffee,faBars , faSearch, faTimes, faShoppingCart, faUtensils, faTrash,  faPlus, faMinus, faHome, faChevronCircleUp, faPizzaSlice, faGlassMartini, faFish, faBreadSlice } from '@fortawesome/free-solid-svg-icons';
+import { faFacebook, faTelegram } from '@fortawesome/free-brands-svg-icons';
 
 
 
@@ -57,11 +60,38 @@ import { BaseelementsModule } from './baseelements/baseelements.module';
       routerState: RouterState.Minimal
     }),
     NgxMaskModule.forRoot(),
-    MaterialsModule
+    MaterialsModule,
+    FontAwesomeModule
     
     
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    // Add an icon to the library for convenient access in other components
+    
+
+    library.addIcons(faCoffee,
+      faBars,
+      faSearch,
+      faTimes,
+      faShoppingCart,
+      faUtensils,
+      faFacebook,
+      faTelegram,
+      faTrash,
+      faPlus,
+      faMinus,
+      faHome,
+      faChevronCircleUp,
+      faPizzaSlice,
+      faGlassMartini,
+      faFish,
+      faBreadSlice
+      
+
+      );
+  }
+ }

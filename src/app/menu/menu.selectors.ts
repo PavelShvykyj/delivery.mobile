@@ -116,17 +116,24 @@ export const selectGoodsBloc = createSelector(
             goods = goods.filter(el => {return (!el.isFolder && el.mName.toUpperCase().search(folder.Filter)!=-1)});
             
         }
-
-        
         goods.sort((el1,el2)=> SortBynumber(el1,el2));
 
         let StartIndex = 0;
         if (props.name==null || props.name==undefined || props.name=="" ) {
             StartIndex = 0;
         } else {
-            StartIndex = Math.min(goods.indexOf(goods.find(el => (el.mNumber == props.name)))+1,goods.length);
+            StartIndex = Math.min(goods.indexOf(
+                goods.find(el => {
+                        if (el.isFolder) {
+                           return el.id == props.name
+                        } else {
+                           return el.mNumber == props.name
+                        }
+                    }))+1,
+            goods.length);
         }
  
+
         goods = goods.slice(StartIndex,Math.min(StartIndex+props.lenth, goods.length));
         
         return goods

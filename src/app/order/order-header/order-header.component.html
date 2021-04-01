@@ -4,8 +4,8 @@
 
         <mat-form-field id='fieldadress' color='accent' class="mb-3 w-fill text-warning bg-dark" appearance="standard">
             <input required formControlName='addres' #inputadress matInput (blur)="UpdateHeader()">
-            <mat-hint class="text-warning"> Куда доставить заказ ? (Обязательно) </mat-hint>
-            <mat-label class="text-warning">Адресс </mat-label>
+            <mat-hint class="text-warning"> Куди доставити замовлення? (Обов'язково) </mat-hint>
+            <mat-label class="text-warning">Адреса </mat-label>
             <button mat-button matPrefix mat-icon-button aria-label="Clear" (click)="ClearAdress()">
                 <!-- <mat-icon>close</mat-icon> -->
                 <fa-icon  [icon]="['fas', 'times']"></fa-icon>
@@ -19,7 +19,7 @@
             <input c prefix="+38 " mask="(000) 000 00 00" required formControlName='phone' #inputphone matInput
                 (blur)="UpdateHeader()">
 
-            <mat-hint class="text-warning"> Как с вами связаться ? (Обязательно) </mat-hint>
+            <mat-hint class="text-warning"> Як з вами зв'язатися ? (Обов'язково) </mat-hint>
             <mat-label class="text-warning">Телефон</mat-label>
             <button mat-button matPrefix mat-icon-button aria-label="Clear" (click)="ClearPhone()">
                 <!-- <mat-icon>close</mat-icon> -->
@@ -31,7 +31,7 @@
 
         <mat-form-field id='fieldcomment' color='accent' class="mb-3 w-fill text-warning bg-dark" appearance="standard">
             <input formControlName='comment' #inputcomment matInput (blur)="UpdateHeader()">
-            <mat-label class="text-warning">Коментарий</mat-label>
+            <mat-label class="text-warning">Коментар</mat-label>
             <button mat-button matPrefix mat-icon-button aria-label="Clear" (click)="ClearComment()">
                 <!-- <mat-icon>close</mat-icon> -->
                 <fa-icon  [icon]="['fas', 'times']"></fa-icon>

@@ -18,7 +18,7 @@
 
               <div class="input-group mb-1">
                 <div class="input-group-prepend d-flex flex-fill">
-                  <span class="input-group-text flex-fill bg-dark text-warning border-0">Размер:</span>
+                  <span class="input-group-text flex-fill bg-dark text-warning border-0">Розмір:</span>
                   <div class="btn-group d-flex flex-fill" role="group" aria-label="">
                     <button *ngFor="let size of sizeData" class="flex-fill mat-any-size" mat-raised-button
                       [color]="size==_size ? 'accent' : ''" (click)="OnSizeSelect(size)">{{sizeNames[size]}}</button>
@@ -48,7 +48,7 @@
             <!-- <p class="mb-0 text-center text-justify">Количество:</p> -->
             <div class="input-group">
               <div class="input-group-prepend ">
-                <span class="input-group-text bg-dark text-warning border-0">Кол.-во:</span>
+                <span class="input-group-text bg-dark text-warning border-0">Кл.-ть:</span>
                 <button class="mat-any-size" mat-raised-button color='accent' (click)="Onuantity(-1)">-</button>
               </div>
 
@@ -65,11 +65,11 @@
             <div class="input-group">
               <div *ngIf="_price!=0" class="input-group-prepend d-flex flex-fill">
 
-                <span class="input-group-text flex-fill bg-dark text-warning border-0">Цена: {{_price}}</span>
-                <span class="input-group-text flex-fill bg-dark text-warning border-0">Сумма: {{_summ}}</span>
+                <span class="input-group-text flex-fill bg-dark text-warning border-0">Ціна: {{_price}}</span>
+                <span class="input-group-text flex-fill bg-dark text-warning border-0">Сума: {{_summ}}</span>
               </div>
               <div *ngIf="_price==0" class="input-group-prepend d-flex flex-fill">
-                <span class="input-group-text flex-fill bg-danger text-light border-0">Временно недоступна </span>
+                <span class="input-group-text flex-fill bg-danger text-light border-0">Тимчасово недоступно </span>
               </div>
             </div>
           </li>
@@ -78,7 +78,7 @@
     </ng-container>
 
     <ng-container *ngIf="!(priceData$ | async) as priceData">
-      <h4>Извините, блюдо временно недоступно...</h4>
+      <h4>Вибачте, блюдо тимчасово недоступно ...</h4>
     </ng-container>
   </div>
   <div class="card-footer d-flex flex-row justify-content-between">

@@ -8,13 +8,13 @@
     </ng-container>
 
     <ng-container matColumnDef="quantity">
-        <mat-header-cell class="table-cell table-cell-button table-header-cell bg-dark text-light" *matHeaderCellDef mat-sort-header> Кол.-во </mat-header-cell>
+        <mat-header-cell class="table-cell table-cell-button table-header-cell bg-dark text-light" *matHeaderCellDef mat-sort-header> Кл.сть </mat-header-cell>
         <mat-cell class="table-cell table-cell-button bg-dark text-warning" *matCellDef="let record">{{record.quantity}}</mat-cell>
-        <mat-footer-cell *matFooterCellDef class="table-footer-cell table-cell-button bg-dark text-warning"  > Итого:  </mat-footer-cell>    
+        <mat-footer-cell *matFooterCellDef class="table-footer-cell table-cell-button bg-dark text-warning"  > Разом:  </mat-footer-cell>    
     </ng-container>
 
     <ng-container matColumnDef="price">
-        <mat-header-cell class="table-cell table-header-cell bg-dark text-light" *matHeaderCellDef mat-sort-header> Цена </mat-header-cell>
+        <mat-header-cell class="table-cell table-header-cell bg-dark text-light" *matHeaderCellDef mat-sort-header> Ціна </mat-header-cell>
         <mat-cell class="table-cell bg-dark text-warning" *matCellDef="let record">{{record.good.price}}</mat-cell>
         <mat-footer-cell *matFooterCellDef class="table-footer-cell table-cell-button bg-dark text-warning"  >  {{ total }} </mat-footer-cell>    
     </ng-container>

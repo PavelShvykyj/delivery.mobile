@@ -18,7 +18,7 @@ export class EditOrderEffects {
         ofType(CreateOrder),
         concatMap(action => this.OrdersServise.AddOrder(action.order).pipe(
             tap(neworder => {
-                this.snackBar.open("ЗАКАЗ СОЗДАН", "OK",{duration: 2000,panelClass: ['snack-info'] } )
+                this.snackBar.open("ЗАМОВЛЕННЯ СТВОРЕНЕ", "OK",{verticalPosition:'top', duration: 2000,panelClass: ['snack-info'] } )
                 
             }),
             map(() => OrderCreated()),
@@ -45,7 +45,7 @@ export class EditOrderEffects {
         dialogConfig.width = "80wv";
         dialogConfig.panelClass = 'custom-modalbox';
 
-        dialogConfig.data = { title: "Ошибки при создании заказа. Повторить попытку?", content: err.comment }
+        dialogConfig.data = { title: "Помилки при створенні замовлення. Повторити спробу?", content: err.comment }
 
         const DialogRef: MatDialogRef<YndialogComponent> = this.dialog.open(
             YndialogComponent,

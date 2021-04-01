@@ -24,6 +24,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [],
@@ -52,7 +53,8 @@ import {MatChipsModule} from '@angular/material/chips';
     MatFormFieldModule,
     MatInputModule,
     MatBadgeModule,
-    MatChipsModule
+    MatChipsModule,
+    MatGridListModule
     
 
   ]

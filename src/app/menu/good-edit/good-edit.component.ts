@@ -39,7 +39,7 @@ export class GoodEditComponent implements OnInit {
 
 
   sizeNames = {
-    0: "Без размера",
+    0: "Без розміру",
     1: "30",
     2: "40",
     3: "50"
@@ -48,8 +48,8 @@ export class GoodEditComponent implements OnInit {
 
   typeNames = {
     0: "Без типа",
-    1: "Обычная",
-    2: "Фитнесс"
+    1: "Звичайна",
+    2: "Фітнес"
   }
 
 

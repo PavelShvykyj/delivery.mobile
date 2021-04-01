@@ -1,24 +1,25 @@
 
 
 <ng-container *ngIf="infinite | async as ds">
-  <cdk-virtual-scroll-viewport itemSize="290" (scrolledIndexChange)='nextBatch($event,(ds[ds.length-1]))' >
-    <li *cdkVirtualFor="let item of ds; let i = index " >
-      <div class="card bg-dark text-warning">
-        <div class="c-img  d-flex justify-content-center align-items-center">
-          <img *ngIf="item.picture" class="card-img-top" [src]='item.picture' (click)='OnElelementClick(item)'>
-          
-
-          <h3 *ngIf="!item.picture" class="text-justify text-warning" > нет картинки </h3> 
+  <!-- itemSize="290" -->
+  <cdk-virtual-scroll-viewport itemSize="" (scrolledIndexChange)='nextBatch($event,(ds[ds.length-1]))' >
+    <li *cdkVirtualFor="let item of ds; let i = index " (click)='OnElelementClick(item)'>
+      <div  class="card border-secondary   rounded-0 bg-dark text-warning">
+        <div *ngIf="item.picture" class="c-img  d-flex justify-content-center align-items-center">
+          <img class="card-img-top" [src]='item.picture' >
+          <!-- <h3 *ngIf="!item.picture" class="text-justify text-warning" > нет картинки </h3>  -->
         </div>
-        <div  class="card-header c-header  d-flex justify-content-center align-items-center">
-          <h4 *ngIf="!item.isFolder" class="mr-2 mb-1" (click)='OnElelementClick(item)'> {{item.mName}} </h4> 
+       
+        <div *ngIf="!item.isFolder" class="card-header c-header  d-flex justify-content-center align-items-center">
+          <h4  class="mr-2 mb-1" (click)='OnElelementClick(item)'> {{item.mName}} </h4> 
         </div>
-        <div class="card-body c-body py-2 d-flex justify-content-center align-items-center">
-          <p *ngIf="!item.isFolder" class="mb-1"> {{item.mDescription == "" ? "нет описания" : item.mDescription}} </p>
-          <h2 *ngIf="item.isFolder" class="mb-1" (click)='OnElelementClick(item)'> {{item.mName}} </h2>
+        
+        <div *ngIf="item.isFolder || item.mDescription" class="card-body c-body py-2 d-flex justify-content-center align-items-center">
+          <p *ngIf="!item.isFolder && item.mDescription" class="mb-1"> <small>{{item.mDescription}}</small>  </p>
+          <h2 *ngIf="item.isFolder" class="mb-1" > {{item.mName}} </h2>
         </div>
         <div class="card-footer c-footer py-1 d-flex justify-content-start align-items-end">
-          <button mat-raised-button class="no-outline mat-any-size mb-2" color='warn'(click)='OnElelementClick(item)'> ХОЧУ </button>
+          <button mat-raised-button class="no-outline mat-any-size mb-2" color='warn'> ХОЧУ </button>
           <!-- <button class="btn btn-danger btn-sm" (click)='OnElelementClick(item)'> ХОЧУ </button> -->
         </div>
       </div>

@@ -13,7 +13,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { GoodEditComponent } from '../good-edit/good-edit.component';
 import { UpsertOrderRecord } from 'src/app/order/editorder.actions';
 
-const batchSize = 5;
+const batchSize = 10;
 
 @Component({
   selector: 'menu-list',

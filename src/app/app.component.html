@@ -1,7 +1,7 @@
 <mat-sidenav-container fullscreen class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>Контент</mat-toolbar>
 
     <div class="d-flex  justify-content-center align-items-center align-self-center" *appShellRender>
       <span class="m-avto"></span>
@@ -18,7 +18,7 @@
     <mat-nav-list *appShellNoRender>
       <a mat-list-item routerLink="home" class="text-warning">
         <fa-icon class="px-2" size="lg" [icon]="['fas', 'home']"></fa-icon>
-        Описание
+        Опис
 
       </a>
 
@@ -56,7 +56,7 @@
       </button>
       <img src="favicon.ico" class="header-image mx-1">
 
-      <span *ngIf="!searchMode">Чили доставка</span>
+      <span *ngIf="!searchMode">Чілі доставка</span>
       <span class="m-avto"></span>
       <ng-container *appShellNoRender>
         <order-mini></order-mini>

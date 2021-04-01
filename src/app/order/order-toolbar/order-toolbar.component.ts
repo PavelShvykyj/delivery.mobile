@@ -27,13 +27,13 @@ export class OrderToolbarComponent  {
     if (EditingOrder.addres.length > 1 && EditingOrder.phone.length == 10 && EditingOrder.goods.length > 0 ) {
       return true
     } else {
-      this.snackBar.open("Заполните контакты ...", "OK", { duration: 2000, panelClass: ['snack-err'] });
+      this.snackBar.open("Заповніть контакти ...", "OK", {verticalPosition:'top', duration: 2000, panelClass: ['snack-err'] });
       return false;
     }
   }
 
   Pay() {
-    this.snackBar.open(" В разработке ...", "OK", { duration: 2000, panelClass: ['snack-info'] })
+    this.snackBar.open(" В розробоці ...", "OK", {verticalPosition:'top', duration: 2000, panelClass: ['snack-info'] })
   }
 
   CreateOrder() {
@@ -47,7 +47,7 @@ export class OrderToolbarComponent  {
       .subscribe(
         res => { },
         err => {
-          this.snackBar.open("Что то  пошло не так", "OK", { duration: 2000, panelClass: ['snack-err'] })
+          this.snackBar.open("Щось пішло не так", "OK", { duration: 2000, panelClass: ['snack-err'] })
         });
   }
 }

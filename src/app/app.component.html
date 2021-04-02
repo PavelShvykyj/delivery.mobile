@@ -78,7 +78,7 @@
       </ng-container>
     </mat-toolbar>
     <ng-container *ngIf="meinelements$ | async as mainmenu; else spinner">
-      <mat-toolbar color='accent' class="toolbar-mini d-flex justify-content-between">
+      <mat-toolbar *appShellNoRender color='accent' class="toolbar-mini d-flex justify-content-between">
         <button class="btn btn-sm border border-dark" (click)="SetTopFolder(mainmenu,1)">
           <fa-icon class="px-2" [icon]="['fas', 'pizza-slice']" ></fa-icon>
           <small> Піци </small>

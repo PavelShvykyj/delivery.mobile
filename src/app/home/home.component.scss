@@ -29,9 +29,9 @@
 
 .grid-container {
     overflow: hidden !important;
-    height: calc(100vh - 94px);
+    height: calc(100vh - 99px);
     @media screen and (max-width: 575.98px) {
-        height: calc(100vh - 86px);
+        height: calc(100vh - 91px);
     }
     width: 100%;
     align-items: center;
@@ -44,9 +44,9 @@
 }
 
 .card-image {
-    object-fit: cover !important;
+    //object-fit: cover !important;
     max-height: 50vh;
-    width: 100%; 
+    //width: 100%; 
     @media screen and (max-width: 575.98px) {
         width: 100vw; 
     }

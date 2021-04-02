@@ -31,8 +31,17 @@
 
   
 .toolbar-mini {
-  height: 30px !important;
-  max-height: 30px !important;
+  height: 35px !important;
+  max-height: 35px !important;
+}
+
+.pc-visible {
+  visibility : visible;
+  @media screen and (max-width: 575.98px) {
+    visibility :hidden;
+  }
+
+
 }
   
 

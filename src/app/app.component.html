@@ -78,11 +78,24 @@
       </ng-container>
     </mat-toolbar>
     <ng-container *ngIf="meinelements$ | async as mainmenu; else spinner">
-      <mat-toolbar color='accent' class="toolbar-mini d-flex justify-content-around">
-        <fa-icon class="px-2" [icon]="['fas', 'pizza-slice']" (click)="SetTopFolder(mainmenu,1)"></fa-icon>
-        <fa-icon class="px-2" [icon]="['fas', 'glass-martini']" (click)="SetTopFolder(mainmenu,4)"></fa-icon>
-        <fa-icon class="px-2" [icon]="['fas', 'bread-slice']" (click)="SetTopFolder(mainmenu,3)"></fa-icon>
-        <fa-icon class="px-2" [icon]="['fas', 'fish']" (click)="SetTopFolder(mainmenu,2)"></fa-icon>
+      <mat-toolbar color='accent' class="toolbar-mini d-flex justify-content-between">
+        <button class="btn btn-sm border border-dark" (click)="SetTopFolder(mainmenu,1)">
+          <fa-icon class="px-2" [icon]="['fas', 'pizza-slice']" ></fa-icon>
+          <small> Піци </small>
+        </button>
+        
+        <button class="btn btn-sm border border-dark " (click)="SetTopFolder(mainmenu,4)">
+          <fa-icon class="px-2" [icon]="['fas', 'glass-martini']" ></fa-icon>
+          <small> Напої </small>
+        </button>
+        <button class="btn btn-sm border border-dark " (click)="SetTopFolder(mainmenu,3)">
+          <fa-icon class="px-2" [icon]="['fas', 'bread-slice']" ></fa-icon>
+          <small> Кухня </small>
+        </button>
+        <button class="btn btn-sm border border-dark" (click)="SetTopFolder(mainmenu,2)">
+          <fa-icon class="px-2" [icon]="['fas', 'fish']" ></fa-icon>
+          <small> Роли </small>
+        </button>
       </mat-toolbar>
     </ng-container>
     <!-- Add Content 

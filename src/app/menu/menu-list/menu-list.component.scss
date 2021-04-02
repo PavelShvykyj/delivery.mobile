@@ -5,9 +5,9 @@ $background-color: map-get($mat-grey, 700);
 :host { display: flex; 
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 94px);
+  height: calc(100vh - 99px);
   @media screen and (max-width: 575.98px) {
-      height: calc(100% - 86px);
+      height: calc(100% - 91px);
   }
 
  }
@@ -28,7 +28,7 @@ cdk-virtual-scroll-viewport {
           width:100%;
         }
         margin: auto !important;  
-        max-height: 290px;
+        max-height: 350px;
         width: 500px;
         margin: 0px;
         padding: 0px;
@@ -41,27 +41,37 @@ button {
 }
 
 .c-img {
-    height: 150px;
+    height: 180px;
    
     margin: 0px;
     padding: 0px;
     background: black;
-    object-fit: cover !important;
+ 
 }
 
+.card-img-top {
+  height: 180px !important;
+  object-fit: contain !important;
+  // @media only screen and (max-width: 575.98px) {
+  //   object-fit: cover !important;
+  //   max-width: 300px;
+  // } 
+}
+
+
 .c-header {
-    height: 40px;
-    max-height: 40px;
+    height: 50px;
+    max-height: 50px;
 }
 
 .c-footer {
-    height: 40px;
-    max-height: 40px;
+    height: 50px;
+    max-height: 50px;
 } 
 
 .c-body {
-    height: 60px;
-    max-height: 60px;
+    height: 70px;
+    max-height: 70px;
 }
 
 
@@ -76,10 +86,7 @@ button {
     height: 35px !important; 
   }
   
-  .card-img-top {
-    height: 150px !important;
-    object-fit: cover !important;
-  }
+
 
   .menu-footer-buttons {
       width: 100%;

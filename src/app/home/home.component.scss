@@ -44,8 +44,8 @@
 }
 
 .card-image {
-    //object-fit: cover !important;
-    max-height: 50vh;
+    object-fit: cover !important;
+    max-height: 100vh;
     //width: 100%; 
     @media screen and (max-width: 575.98px) {
         width: 100vw; 
@@ -59,9 +59,25 @@
 
 
 mat-card {
+    object-fit: cover !important;
     width: 50vw;
     max-height: 40vh;
     @media screen and (max-width: 575.98px) {
         width: 100vw;
     }
 }
+
+.card-image-header {
+    width: 50vw;
+    @media screen and (max-width: 575.98px) {
+        width: 100vw;
+        height: 40vh;
+    }
+    max-height: 429px;
+    // border-radius: 8px;
+    background-position: 50%;
+    background-size: cover;
+    height: 50vh;
+}
+
+ 

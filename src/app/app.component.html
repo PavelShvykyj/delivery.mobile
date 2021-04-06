@@ -47,8 +47,8 @@
     </mat-nav-list>
 
   </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color='primary'>
+  <mat-sidenav-content >
+    <mat-toolbar  color='primary'>
       <button class="no-outline" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <fa-icon size="lg" [icon]="['fas', 'bars']"></fa-icon>
@@ -66,7 +66,7 @@
         </button>
 
         <div *ngIf="searchMode" class="input-group input-group-sm ml-2">
-          <input #search class="form-control form-control-sm no-outline" type="text" placeholder="по имени"
+          <input #search class="form-control form-control-sm no-outline" type="text" placeholder="пошук по імені"
             (input)="OnFilterChange()" [(ngModel)]="NameFilterValue">
           <div class="input-group-append">
             <button class="btn text-light py-0" (click)="SearchMode(); ClearFilter()">

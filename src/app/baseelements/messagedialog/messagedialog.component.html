@@ -1,0 +1,13 @@
+<div class="card bg-dark text-warning" >
+    <img class="card-img-top" src="../../../assets/main.jpg" alt="chili logo">
+    <div class="card-body text-warning">
+      <h5 class="card-title text-warning">{{title}} </h5>
+      <h5 *ngIf="subtitle" class="card-subtitle mb-2 text-warning">{{subtitle}}</h5>
+      <p class="card-text text-warning">{{content}}</p>
+      
+    </div>
+    <div class="card-footer d-flex flex-row justify-content-center">
+        <button mat-raised-button  color='accent' class="mat-any-size" (click)="dialogRef.close();">OK</button>
+    </div>
+
+</div>

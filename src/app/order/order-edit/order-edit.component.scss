@@ -18,9 +18,9 @@
 
 .grid-container {
     overflow: hidden !important;
-    height: calc(100vh - 94px);
+    height: calc(100vh - 99px);
     @media screen and (max-width: 575.98px) {
-        height: calc(100% - 86px);
+        height: calc(100vh - 91px);
     }
     width: 100%;
 }

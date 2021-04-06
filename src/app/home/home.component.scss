@@ -3,20 +3,11 @@
     overflow: hidden !important;
     display: flex;
     flex-direction: column;
- 
 }
-
-
 
 .gridelement{
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: end;
     width: 100%;
-    // height: 100%;
 }
-
-
 
 .gridelement-row{
     background-color: #303030;
@@ -24,7 +15,6 @@
     flex-direction: row;
     width: 100%;
     height: 100%;
-  
 }
 
 .grid-container {
@@ -43,40 +33,55 @@
     background-color: unset;
 }
 
-.card-image {
-    object-fit: cover !important;
-    max-height: 100vh;
-    //width: 100%; 
-    @media screen and (max-width: 575.98px) {
-        width: 100vw; 
-    }
+// .card-image {
+//     object-fit: cover !important;
+//     max-height: 100vh;
+//     //width: 100%; 
+//     @media screen and (max-width: 575.98px) {
+//         width: 100vw; 
+//     }
     
-}
+// }
 
 .rotate {
     transform: rotate(-45deg) !important;
 }
 
 
-mat-card {
-    object-fit: cover !important;
-    width: 50vw;
-    max-height: 40vh;
+.mat-card {
+    box-shadow: none;
+    width: 100%;
+    //max-height: 40vh;
     @media screen and (max-width: 575.98px) {
         width: 100vw;
+    }
+
+    @media screen and (max-width: 1299.98px) {
+        background-size: cover;
+        width: 100%;    
     }
 }
 
 .card-image-header {
-    width: 50vw;
+    width: 100%;
     @media screen and (max-width: 575.98px) {
         width: 100vw;
-        height: 40vh;
+        height: 35vh;
+        max-height: 35vh;;
+        background-image: url('../../assets/main.jpg');
+        background-size: cover;
     }
-    max-height: 429px;
-    // border-radius: 8px;
+    
+    @media screen and (max-width: 1299.98px) {
+        background-size: cover;
+        
+    }
+
+    max-height: 450px;
+    background-image: url('../../assets/mainPC.jpeg');
     background-position: 50%;
     background-size: cover;
+    background-repeat: no-repeat;
     height: 50vh;
 }
 

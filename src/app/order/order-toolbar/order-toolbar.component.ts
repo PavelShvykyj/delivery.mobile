@@ -33,7 +33,7 @@ export class OrderToolbarComponent  {
   }
 
   Pay() {
-    this.snackBar.open(" В розробоці ...", "OK", {verticalPosition:'top', duration: 2000, panelClass: ['snack-info'] })
+    this.snackBar.open(" В розробоці ...", "OK", {verticalPosition:'top', duration: 2000, panelClass: ['snack-err'] })
   }
 
   CreateOrder() {

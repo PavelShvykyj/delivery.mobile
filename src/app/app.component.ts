@@ -1,6 +1,6 @@
 import { IMobileGood } from './models/mobile.good';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, ViewChild, Inject, PLATFORM_ID, OnInit, ElementRef } from '@angular/core';
+import { Component, ViewChild, Inject, PLATFORM_ID, OnInit, ElementRef, HostListener, HostBinding } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
@@ -22,6 +22,7 @@ export class AppComponent  {
   title = 'delivery-mobile';
   NameFilterValue = "";
   searchMode = false;
+  scrHeight;
 
   @ViewChild('drawer')
   nav : MatDrawer 
@@ -30,7 +31,7 @@ export class AppComponent  {
 
   isHandset:boolean = true;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 720px)')
   .pipe(
     tap(result => this.isHandset=result.matches),
     map(result => result.matches),
@@ -48,16 +49,29 @@ export class AppComponent  {
 
   }
 
+  @HostBinding("style.--vh")
+  private vh: string;
+
+
+  @HostListener('window:resize', ['$event'])
+    getScreenSize(event?) {
+          this.scrHeight = window.innerHeight;
+          this.vh = `${this.scrHeight* 0.01}px`
+          console.log('scrHeight', this.scrHeight);
+    }
+
+  
 
 
 constructor(private breakpointObserver: BreakpointObserver,
   private router : Router,
   private store: Store<AppState>, @Inject(PLATFORM_ID) private plaformid) {
     if ( !isPlatformServer(plaformid) ) {
+      this.getScreenSize();
       this.store.dispatch(loadAllMenu());
       this.meinelements$ = this.store.pipe(select(selectTopFolders));
       }
-      this.orderLenth$ = this.store.pipe(select(SelectOrderquantity))
+      this.orderLenth$ = this.store.pipe(select(SelectOrderquantity));
   }
 
   OnFilterChange() {
@@ -88,12 +102,12 @@ constructor(private breakpointObserver: BreakpointObserver,
     this.NameFilterValue = "";
   }
 
-  GoToOrder() {
+  GoTo(rout: string) {
     if (this.isHandset) {
       this.nav.toggle();  
     }
-    if (!this.router.isActive("Order",true)) {
-      this.router.navigateByUrl("Order");
+    if (!this.router.isActive(rout,true)) {
+      this.router.navigateByUrl(rout);
     } 
   }
 

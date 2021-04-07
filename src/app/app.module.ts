@@ -32,6 +32,7 @@ import { BaseelementsModule } from './baseelements/baseelements.module';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCoffee,faBars , faSearch, faTimes, faShoppingCart, faUtensils, faTrash,  faPlus, faMinus, faHome, faChevronCircleUp, faPizzaSlice, faGlassMartini, faFish, faBreadSlice } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faTelegram } from '@fortawesome/free-brands-svg-icons';
+import { ClickStopPropagationDirective } from './directives/click-stop-propagation.directive';
 
 
 
@@ -41,7 +42,8 @@ import { faFacebook, faTelegram } from '@fortawesome/free-brands-svg-icons';
     AppComponent,
     HomeComponent,
     AppShellRenderDirective,
-    AppShellNoRenderDirective
+    AppShellNoRenderDirective,
+    ClickStopPropagationDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

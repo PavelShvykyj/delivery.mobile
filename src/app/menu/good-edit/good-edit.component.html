@@ -85,7 +85,7 @@
   <div class="card-footer d-flex flex-row justify-content-between">
     <!-- <button type="button" class="btn-sm btn-secondary">Сохранить</button>
     <button type="button" class="btn-sm btn-secondary">Отмена</button> -->
-    <button mat-raised-button color='accent' (click)="Cancel()">Отмена</button>
-    <button *ngIf="_price!=0" mat-raised-button color='warn' (click)="Order()">Заказать</button>
+    <button click-stop-propagation mat-raised-button color='accent' (click)="Cancel()">Отмена</button>
+    <button click-stop-propagation *ngIf="_price!=0" mat-raised-button color='warn' (click)="Order()">Заказать</button>
   </div>
 </div>

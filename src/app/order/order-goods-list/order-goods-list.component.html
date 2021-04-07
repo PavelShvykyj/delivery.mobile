@@ -21,7 +21,7 @@
 
 
     <ng-container matColumnDef="comment">
-        <mat-header-cell class="table-cell table-header-cell bg-dark text-light" *matHeaderCellDef mat-sort-header> Коментарий </mat-header-cell>
+        <mat-header-cell class="table-cell table-header-cell bg-dark text-light" *matHeaderCellDef mat-sort-header> Коментар </mat-header-cell>
         <mat-cell class="table-cell bg-dark text-warning" *matCellDef="let record" (click)="OnRecordClick(record)"> <small>{{record.comment}}</small></mat-cell>
         <mat-footer-cell *matFooterCellDef></mat-footer-cell>
     </ng-container>

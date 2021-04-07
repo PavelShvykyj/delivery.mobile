@@ -86,7 +86,7 @@ export class OrderGoodsListComponent implements OnInit {
     dialogConfig.maxWidth = "500px"
     dialogConfig.width = "90vw";
     dialogConfig.panelClass = 'custom-modalbox';
-    dialogConfig.data = {title: `Комментарий для : ${record.good.name}` , answer:record.comment}
+    dialogConfig.data = {title: `Комментар для : ${record.good.name}` , answer:record.comment}
 
     const DialogRef : MatDialogRef<DialogstringinputComponent>  = this.dialog.open(
       DialogstringinputComponent,
@@ -101,7 +101,7 @@ export class OrderGoodsListComponent implements OnInit {
  
 
   Del(record) {
-    this.snackBar.open("Для удаления нажмите -->", "OK", { duration: 3000, panelClass: ['snack-info'] })
+    this.snackBar.open("Для видалення натисніть -->", "OK", { duration: 3000, panelClass: ['snack-info'] })
     .onAction()
     .pipe(first())
     .subscribe(()=>this.store.dispatch(DeleteOrderRecord({recordid:record.id})));

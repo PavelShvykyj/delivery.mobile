@@ -129,7 +129,7 @@ export class GoodEditComponent implements OnInit {
   } 
 
   Cancel() {
-    
+    console.log('Cancel in dialog');
     this.dialogRef.close({ answer: 'cancel' });
   }
   
